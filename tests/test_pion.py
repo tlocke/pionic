@@ -116,9 +116,31 @@ def test_loads():
             '2007-02-23T20:14:33.Z',
             Exception())])
 def test_timestamps(ion_str, pyth):
-    print('ion_str', ion_str, 'pyth', pyth)
     if isinstance(pyth, Exception):
         with pytest.raises(PionException):
             loads(ion_str)
     else:
         assert loads(ion_str) == pyth
+
+
+@pytest.mark.parametrize(
+    "ion_str", [
+        'null',
+
+        # Identical to unadorned null
+        'null.null',
+
+        'null.bool',
+        'null.int',
+        'null.float',
+        'null.decimal',
+        'null.timestamp',
+        'null.string',
+        'null.symbol',
+        'null.blob',
+        'null.clob',
+        'null.struct',
+        'null.list',
+        'null.sexp'])
+def test_nulls(ion_str):
+    assert loads(ion_str) is None

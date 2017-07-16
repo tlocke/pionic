@@ -71,3 +71,11 @@ def parse(node):
             " with value " + str(node) + ".")
 
     return val
+
+
+def dumps(obj):
+    return _dump(obj)
+
+
+def _dump(obj):
+    return str(obj)

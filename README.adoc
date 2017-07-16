@@ -1,0 +1,55 @@
+= Pion
+
+A Python 3 library for the http://amzn.github.io/ion-docs/[Ion format].
+
+image:https://travis-ci.org/tlocke/pion.svg?branch=master["Build Status",
+link="https://travis-ci.org/tlocke/pion"]
+
+
+== Installation
+
+It's a good idea to set up a virtualenv:
+
+ virtualenv venv
+ source venv/bin/activate
+
+then install Pion with pip:
+
+ pip install pion
+
+
+== Quickstart
+
+To parse a string from the Ion format to Python objects use `pion.loads` and
+to output a Python object as an Ion string use `pion.dumps`. Eg:
+
+....
+>>> from pion import loads, dumps
+>>>
+>>> # Parse a timestamp
+>>> loads('2005-09-01T13:09Z')
+datetime.datetime(2005, 9, 1, 13, 9, tzinfo=tzutc())
+>>>
+>>> # Parse a null
+>>> loads('null')
+
+....
+
+
+== Contributing
+
+Useful links:
+
+* https://amzn.github.io/ion-docs/spec.html[Ion Specification]
+* http://www.antlr.org/api/Java/index.html?overview-summary.html[ANTLR JavaDocs]
+
+* Change to the `pion` directory: `cd pion`
+* Create a virtual environment: `virtualenv --python=python3 venv`
+* Active the virtual environment: `source venv/bin/activate`
+
+The core parser is created using https://github.com/antlr/antlr4[ANTLR] from
+the http://amzn.github.io/ion-docs/grammar/IonText.g4.txt[Ion grammar]. To
+create the parser files, go to the `antlr` directory and download the ANTLR jar
+and then run the following command:
+
+ java -jar antlr-4.7-complete.jar -Dlanguage=Python3 IonText.g4
