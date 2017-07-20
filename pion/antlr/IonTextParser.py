@@ -1,13 +1,9 @@
 # Generated from IonText.g4 by ANTLR 4.7
 # encoding: utf-8
-from antlr4 import (
-    ParseTreeListener, Parser, ATNDeserializer, DFA, PredictionContextCache,
-    Token, TokenStream, ParserATNSimulator, ParserRuleContext, ATN,
-    RecognitionException, NoViableAltException)
+from antlr4 import *
 from io import StringIO
 from typing.io import TextIO
 import sys
-
 
 def serializedATN():
     with StringIO() as buf:
@@ -235,27 +231,28 @@ def serializedATN():
         return buf.getvalue()
 
 
-class IonTextParser(Parser):
+class IonTextParser ( Parser ):
 
     grammarFileName = "IonText.g4"
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
-    decisionsToDFA = [DFA(ds, i) for i, ds in enumerate(atn.decisionToState)]
+    decisionsToDFA = [ DFA(ds, i) for i, ds in enumerate(atn.decisionToState) ]
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [
-        "<INVALID>", "'['", "']'", "'('", "')'", "'{'", "'}'", "','", "':'",
-        "'.'", "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", "'null'"]
+    literalNames = [ "<INVALID>", "'['", "']'", "'('", "')'", "'{'", "'}'", 
+                     "','", "':'", "'.'", "<INVALID>", "<INVALID>", "<INVALID>", 
+                     "<INVALID>", "'null'" ]
 
-    symbolicNames = [
-        "<INVALID>", "L_BRACKET", "R_BRACKET", "L_PAREN", "R_PAREN", "L_CURLY",
-        "R_CURLY", "COMMA", "COLON", "DOT", "NON_DOT_OPERATOR", "WHITESPACE",
-        "INLINE_COMMENT", "BLOCK_COMMENT", "NULL", "TYPE", "BOOL", "TIMESTAMP",
-        "BIN_INTEGER", "DEC_INTEGER", "HEX_INTEGER", "SPECIAL_FLOAT", "FLOAT",
-        "DECIMAL", "QUOTED_SYMBOL", "IDENTIFIER_SYMBOL", "SHORT_QUOTED_STRING",
-        "LONG_QUOTED_STRING", "SHORT_QUOTED_CLOB", "LONG_QUOTED_CLOB", "BLOB"]
+    symbolicNames = [ "<INVALID>", "L_BRACKET", "R_BRACKET", "L_PAREN", 
+                      "R_PAREN", "L_CURLY", "R_CURLY", "COMMA", "COLON", 
+                      "DOT", "NON_DOT_OPERATOR", "WHITESPACE", "INLINE_COMMENT", 
+                      "BLOCK_COMMENT", "NULL", "TYPE", "BOOL", "TIMESTAMP", 
+                      "BIN_INTEGER", "DEC_INTEGER", "HEX_INTEGER", "SPECIAL_FLOAT", 
+                      "FLOAT", "DECIMAL", "QUOTED_SYMBOL", "IDENTIFIER_SYMBOL", 
+                      "SHORT_QUOTED_STRING", "LONG_QUOTED_STRING", "SHORT_QUOTED_CLOB", 
+                      "LONG_QUOTED_CLOB", "BLOB" ]
 
     RULE_top_level = 0
     RULE_top_level_value = 1
@@ -284,166 +281,142 @@ class IonTextParser(Parser):
     RULE_symbol = 24
     RULE_ws = 25
 
-    ruleNames = [
-        "top_level", "top_level_value", "value", "entity", "delimiting_entity",
-        "keyword_delimiting_entity", "keyword_entity", "numeric_entity",
-        "annotation", "quoted_annotation", "list_type", "sexp", "sexp_value",
-        "sexp_delimiting_entity", "sexp_keyword_delimiting_entity",
-        "sexp_null_delimiting_entity", "sexp_keyword_entity", "operator",
-        "struct", "field", "any_null", "typed_null", "field_name",
-        "quoted_text", "symbol", "ws"]
+    ruleNames =  [ "top_level", "top_level_value", "value", "entity", "delimiting_entity", 
+                   "keyword_delimiting_entity", "keyword_entity", "numeric_entity", 
+                   "annotation", "quoted_annotation", "list_type", "sexp", 
+                   "sexp_value", "sexp_delimiting_entity", "sexp_keyword_delimiting_entity", 
+                   "sexp_null_delimiting_entity", "sexp_keyword_entity", 
+                   "operator", "struct", "field", "any_null", "typed_null", 
+                   "field_name", "quoted_text", "symbol", "ws" ]
 
     EOF = Token.EOF
-    L_BRACKET = 1
-    R_BRACKET = 2
-    L_PAREN = 3
-    R_PAREN = 4
-    L_CURLY = 5
-    R_CURLY = 6
-    COMMA = 7
-    COLON = 8
-    DOT = 9
-    NON_DOT_OPERATOR = 10
-    WHITESPACE = 11
-    INLINE_COMMENT = 12
-    BLOCK_COMMENT = 13
-    NULL = 14
-    TYPE = 15
-    BOOL = 16
-    TIMESTAMP = 17
-    BIN_INTEGER = 18
-    DEC_INTEGER = 19
-    HEX_INTEGER = 20
-    SPECIAL_FLOAT = 21
-    FLOAT = 22
-    DECIMAL = 23
-    QUOTED_SYMBOL = 24
-    IDENTIFIER_SYMBOL = 25
-    SHORT_QUOTED_STRING = 26
-    LONG_QUOTED_STRING = 27
-    SHORT_QUOTED_CLOB = 28
-    LONG_QUOTED_CLOB = 29
-    BLOB = 30
+    L_BRACKET=1
+    R_BRACKET=2
+    L_PAREN=3
+    R_PAREN=4
+    L_CURLY=5
+    R_CURLY=6
+    COMMA=7
+    COLON=8
+    DOT=9
+    NON_DOT_OPERATOR=10
+    WHITESPACE=11
+    INLINE_COMMENT=12
+    BLOCK_COMMENT=13
+    NULL=14
+    TYPE=15
+    BOOL=16
+    TIMESTAMP=17
+    BIN_INTEGER=18
+    DEC_INTEGER=19
+    HEX_INTEGER=20
+    SPECIAL_FLOAT=21
+    FLOAT=22
+    DECIMAL=23
+    QUOTED_SYMBOL=24
+    IDENTIFIER_SYMBOL=25
+    SHORT_QUOTED_STRING=26
+    LONG_QUOTED_STRING=27
+    SHORT_QUOTED_CLOB=28
+    LONG_QUOTED_CLOB=29
+    BLOB=30
 
-    def __init__(self, input: TokenStream, output: TextIO = sys.stdout):
+    def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
         self.checkVersion("4.7")
-        self._interp = ParserATNSimulator(
-            self, self.atn, self.decisionsToDFA, self.sharedContextCache)
+        self._interp = ParserATNSimulator(self, self.atn, self.decisionsToDFA, self.sharedContextCache)
         self._predicates = None
+
+
 
     class Top_levelContext(ParserRuleContext):
 
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def EOF(self):
             return self.getToken(IonTextParser.EOF, 0)
 
-        def top_level_value(self, i: int=None):
+        def top_level_value(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(
-                    IonTextParser.Top_level_valueContext)
+                return self.getTypedRuleContexts(IonTextParser.Top_level_valueContext)
             else:
-                return self.getTypedRuleContext(
-                    IonTextParser.Top_level_valueContext, i)
+                return self.getTypedRuleContext(IonTextParser.Top_level_valueContext,i)
 
-        def ws(self, i: int=None):
+
+        def ws(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(IonTextParser.WsContext)
             else:
-                return self.getTypedRuleContext(IonTextParser.WsContext, i)
+                return self.getTypedRuleContext(IonTextParser.WsContext,i)
+
 
         def value(self):
-            return self.getTypedRuleContext(IonTextParser.ValueContext, 0)
+            return self.getTypedRuleContext(IonTextParser.ValueContext,0)
+
 
         def getRuleIndex(self):
             return IonTextParser.RULE_top_level
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterTop_level"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterTop_level" ):
                 listener.enterTop_level(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitTop_level"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitTop_level" ):
                 listener.exitTop_level(self)
+
+
+
 
     def top_level(self):
 
         localctx = IonTextParser.Top_levelContext(self, self._ctx, self.state)
         self.enterRule(localctx, 0, self.RULE_top_level)
-        self._la = 0  # Token type
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 61
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input, 1, self._ctx)
-            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
-                if _alt == 1:
+            _alt = self._interp.adaptivePredict(self._input,1,self._ctx)
+            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                if _alt==1:
                     self.state = 55
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(
-                        self._input, 0, self._ctx)
-                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
-                        if _alt == 1:
+                    _alt = self._interp.adaptivePredict(self._input,0,self._ctx)
+                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                        if _alt==1:
                             self.state = 52
-                            self.ws()
+                            self.ws() 
                         self.state = 57
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(
-                            self._input, 0, self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input,0,self._ctx)
 
                     self.state = 58
-                    self.top_level_value()
+                    self.top_level_value() 
                 self.state = 63
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input, 1, self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,1,self._ctx)
 
             self.state = 67
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input, 2, self._ctx)
-            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
-                if _alt == 1:
+            _alt = self._interp.adaptivePredict(self._input,2,self._ctx)
+            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                if _alt==1:
                     self.state = 64
-                    self.ws()
+                    self.ws() 
                 self.state = 69
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input, 2, self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,2,self._ctx)
 
             self.state = 71
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (
-                    ((_la) & ~0x3f) == 0 and (
-                        (1 << _la) & (
-                            (1 << IonTextParser.L_BRACKET) |
-                            (1 << IonTextParser.L_PAREN) |
-                            (1 << IonTextParser.L_CURLY) |
-                            (1 << IonTextParser.WHITESPACE) |
-                            (1 << IonTextParser.INLINE_COMMENT) |
-                            (1 << IonTextParser.BLOCK_COMMENT) |
-                            (1 << IonTextParser.NULL) |
-                            (1 << IonTextParser.TYPE) |
-                            (1 << IonTextParser.BOOL) |
-                            (1 << IonTextParser.TIMESTAMP) |
-                            (1 << IonTextParser.BIN_INTEGER) |
-                            (1 << IonTextParser.DEC_INTEGER) |
-                            (1 << IonTextParser.HEX_INTEGER) |
-                            (1 << IonTextParser.SPECIAL_FLOAT) |
-                            (1 << IonTextParser.FLOAT) |
-                            (1 << IonTextParser.DECIMAL) |
-                            (1 << IonTextParser.QUOTED_SYMBOL) |
-                            (1 << IonTextParser.IDENTIFIER_SYMBOL) |
-                            (1 << IonTextParser.SHORT_QUOTED_STRING) |
-                            (1 << IonTextParser.LONG_QUOTED_STRING) |
-                            (1 << IonTextParser.SHORT_QUOTED_CLOB) |
-                            (1 << IonTextParser.LONG_QUOTED_CLOB) |
-                            (1 << IonTextParser.BLOB))) != 0):
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << IonTextParser.L_BRACKET) | (1 << IonTextParser.L_PAREN) | (1 << IonTextParser.L_CURLY) | (1 << IonTextParser.WHITESPACE) | (1 << IonTextParser.INLINE_COMMENT) | (1 << IonTextParser.BLOCK_COMMENT) | (1 << IonTextParser.NULL) | (1 << IonTextParser.TYPE) | (1 << IonTextParser.BOOL) | (1 << IonTextParser.TIMESTAMP) | (1 << IonTextParser.BIN_INTEGER) | (1 << IonTextParser.DEC_INTEGER) | (1 << IonTextParser.HEX_INTEGER) | (1 << IonTextParser.SPECIAL_FLOAT) | (1 << IonTextParser.FLOAT) | (1 << IonTextParser.DECIMAL) | (1 << IonTextParser.QUOTED_SYMBOL) | (1 << IonTextParser.IDENTIFIER_SYMBOL) | (1 << IonTextParser.SHORT_QUOTED_STRING) | (1 << IonTextParser.LONG_QUOTED_STRING) | (1 << IonTextParser.SHORT_QUOTED_CLOB) | (1 << IonTextParser.LONG_QUOTED_CLOB) | (1 << IonTextParser.BLOB))) != 0):
                 self.state = 70
                 self.value()
+
 
             self.state = 73
             self.match(IonTextParser.EOF)
@@ -457,86 +430,86 @@ class IonTextParser(Parser):
 
     class Top_level_valueContext(ParserRuleContext):
 
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def top_level_value(self):
-            return self.getTypedRuleContext(
-                IonTextParser.Top_level_valueContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Top_level_valueContext,0)
 
-        def annotation(self, i: int=None):
+
+        def annotation(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(
-                    IonTextParser.AnnotationContext)
+                return self.getTypedRuleContexts(IonTextParser.AnnotationContext)
             else:
-                return self.getTypedRuleContext(
-                    IonTextParser.AnnotationContext, i)
+                return self.getTypedRuleContext(IonTextParser.AnnotationContext,i)
+
 
         def delimiting_entity(self):
-            return self.getTypedRuleContext(
-                IonTextParser.Delimiting_entityContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Delimiting_entityContext,0)
+
 
         def numeric_entity(self):
-            return self.getTypedRuleContext(
-                IonTextParser.Numeric_entityContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Numeric_entityContext,0)
+
 
         def ws(self):
-            return self.getTypedRuleContext(IonTextParser.WsContext, 0)
+            return self.getTypedRuleContext(IonTextParser.WsContext,0)
+
 
         def quoted_annotation(self):
-            return self.getTypedRuleContext(
-                IonTextParser.Quoted_annotationContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Quoted_annotationContext,0)
+
 
         def value(self):
-            return self.getTypedRuleContext(IonTextParser.ValueContext, 0)
+            return self.getTypedRuleContext(IonTextParser.ValueContext,0)
+
 
         def keyword_entity(self):
-            return self.getTypedRuleContext(
-                IonTextParser.Keyword_entityContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Keyword_entityContext,0)
+
 
         def keyword_delimiting_entity(self):
-            return self.getTypedRuleContext(
-                IonTextParser.Keyword_delimiting_entityContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Keyword_delimiting_entityContext,0)
+
 
         def getRuleIndex(self):
             return IonTextParser.RULE_top_level_value
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterTop_level_value"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterTop_level_value" ):
                 listener.enterTop_level_value(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitTop_level_value"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitTop_level_value" ):
                 listener.exitTop_level_value(self)
+
+
+
 
     def top_level_value(self):
 
-        localctx = IonTextParser.Top_level_valueContext(
-            self, self._ctx, self.state)
+        localctx = IonTextParser.Top_level_valueContext(self, self._ctx, self.state)
         self.enterRule(localctx, 2, self.RULE_top_level_value)
         try:
             self.state = 103
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input, 5, self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,5,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 76
+                self.state = 76 
                 self._errHandler.sync(self)
                 _alt = 1
-                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                     if _alt == 1:
                         self.state = 75
                         self.annotation()
 
                     else:
                         raise NoViableAltException(self)
-                    self.state = 78
+                    self.state = 78 
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(
-                        self._input, 4, self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input,4,self._ctx)
 
                 self.state = 80
                 self.top_level_value()
@@ -600,6 +573,7 @@ class IonTextParser(Parser):
                 self.keyword_delimiting_entity()
                 pass
 
+
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -610,33 +584,34 @@ class IonTextParser(Parser):
 
     class ValueContext(ParserRuleContext):
 
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def entity(self):
-            return self.getTypedRuleContext(IonTextParser.EntityContext, 0)
+            return self.getTypedRuleContext(IonTextParser.EntityContext,0)
 
-        def annotation(self, i: int=None):
+
+        def annotation(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(
-                    IonTextParser.AnnotationContext)
+                return self.getTypedRuleContexts(IonTextParser.AnnotationContext)
             else:
-                return self.getTypedRuleContext(
-                    IonTextParser.AnnotationContext, i)
+                return self.getTypedRuleContext(IonTextParser.AnnotationContext,i)
+
 
         def getRuleIndex(self):
             return IonTextParser.RULE_value
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterValue"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterValue" ):
                 listener.enterValue(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitValue"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitValue" ):
                 listener.exitValue(self)
+
+
+
 
     def value(self):
 
@@ -646,14 +621,14 @@ class IonTextParser(Parser):
             self.enterOuterAlt(localctx, 1)
             self.state = 108
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input, 6, self._ctx)
-            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
-                if _alt == 1:
+            _alt = self._interp.adaptivePredict(self._input,6,self._ctx)
+            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                if _alt==1:
                     self.state = 105
-                    self.annotation()
+                    self.annotation() 
                 self.state = 110
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input, 6, self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,6,self._ctx)
 
             self.state = 111
             self.entity()
@@ -667,34 +642,35 @@ class IonTextParser(Parser):
 
     class EntityContext(ParserRuleContext):
 
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def numeric_entity(self):
-            return self.getTypedRuleContext(
-                IonTextParser.Numeric_entityContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Numeric_entityContext,0)
+
 
         def delimiting_entity(self):
-            return self.getTypedRuleContext(
-                IonTextParser.Delimiting_entityContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Delimiting_entityContext,0)
+
 
         def keyword_entity(self):
-            return self.getTypedRuleContext(
-                IonTextParser.Keyword_entityContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Keyword_entityContext,0)
+
 
         def getRuleIndex(self):
             return IonTextParser.RULE_entity
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterEntity"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterEntity" ):
                 listener.enterEntity(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitEntity"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitEntity" ):
                 listener.exitEntity(self)
+
+
+
 
     def entity(self):
 
@@ -704,31 +680,17 @@ class IonTextParser(Parser):
             self.state = 116
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [
-                    IonTextParser.TIMESTAMP, IonTextParser.BIN_INTEGER,
-                    IonTextParser.DEC_INTEGER, IonTextParser.HEX_INTEGER,
-                    IonTextParser.FLOAT, IonTextParser.DECIMAL]:
+            if token in [IonTextParser.TIMESTAMP, IonTextParser.BIN_INTEGER, IonTextParser.DEC_INTEGER, IonTextParser.HEX_INTEGER, IonTextParser.FLOAT, IonTextParser.DECIMAL]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 113
                 self.numeric_entity()
                 pass
-            elif token in [
-                    IonTextParser.L_BRACKET, IonTextParser.L_PAREN,
-                    IonTextParser.L_CURLY, IonTextParser.WHITESPACE,
-                    IonTextParser.INLINE_COMMENT, IonTextParser.BLOCK_COMMENT,
-                    IonTextParser.QUOTED_SYMBOL,
-                    IonTextParser.SHORT_QUOTED_STRING,
-                    IonTextParser.LONG_QUOTED_STRING,
-                    IonTextParser.SHORT_QUOTED_CLOB,
-                    IonTextParser.LONG_QUOTED_CLOB, IonTextParser.BLOB]:
+            elif token in [IonTextParser.L_BRACKET, IonTextParser.L_PAREN, IonTextParser.L_CURLY, IonTextParser.WHITESPACE, IonTextParser.INLINE_COMMENT, IonTextParser.BLOCK_COMMENT, IonTextParser.QUOTED_SYMBOL, IonTextParser.SHORT_QUOTED_STRING, IonTextParser.LONG_QUOTED_STRING, IonTextParser.SHORT_QUOTED_CLOB, IonTextParser.LONG_QUOTED_CLOB, IonTextParser.BLOB]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 114
                 self.delimiting_entity()
                 pass
-            elif token in [
-                    IonTextParser.NULL, IonTextParser.TYPE, IonTextParser.BOOL,
-                    IonTextParser.SPECIAL_FLOAT,
-                    IonTextParser.IDENTIFIER_SYMBOL]:
+            elif token in [IonTextParser.NULL, IonTextParser.TYPE, IonTextParser.BOOL, IonTextParser.SPECIAL_FLOAT, IonTextParser.IDENTIFIER_SYMBOL]:
                 self.enterOuterAlt(localctx, 3)
                 self.state = 115
                 self.keyword_entity()
@@ -746,15 +708,13 @@ class IonTextParser(Parser):
 
     class Delimiting_entityContext(ParserRuleContext):
 
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def quoted_text(self):
-            return self.getTypedRuleContext(
-                IonTextParser.Quoted_textContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Quoted_textContext,0)
+
 
         def SHORT_QUOTED_CLOB(self):
             return self.getToken(IonTextParser.SHORT_QUOTED_CLOB, 0)
@@ -766,38 +726,40 @@ class IonTextParser(Parser):
             return self.getToken(IonTextParser.BLOB, 0)
 
         def list_type(self):
-            return self.getTypedRuleContext(IonTextParser.List_typeContext, 0)
+            return self.getTypedRuleContext(IonTextParser.List_typeContext,0)
+
 
         def sexp(self):
-            return self.getTypedRuleContext(IonTextParser.SexpContext, 0)
+            return self.getTypedRuleContext(IonTextParser.SexpContext,0)
+
 
         def struct(self):
-            return self.getTypedRuleContext(IonTextParser.StructContext, 0)
+            return self.getTypedRuleContext(IonTextParser.StructContext,0)
+
 
         def getRuleIndex(self):
             return IonTextParser.RULE_delimiting_entity
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterDelimiting_entity"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterDelimiting_entity" ):
                 listener.enterDelimiting_entity(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitDelimiting_entity"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitDelimiting_entity" ):
                 listener.exitDelimiting_entity(self)
 
+
+
+
     def delimiting_entity(self):
-        localctx = IonTextParser.Delimiting_entityContext(
-            self, self._ctx, self.state)
+
+        localctx = IonTextParser.Delimiting_entityContext(self, self._ctx, self.state)
         self.enterRule(localctx, 8, self.RULE_delimiting_entity)
         try:
             self.state = 125
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [
-                    IonTextParser.WHITESPACE, IonTextParser.INLINE_COMMENT,
-                    IonTextParser.BLOCK_COMMENT, IonTextParser.QUOTED_SYMBOL,
-                    IonTextParser.SHORT_QUOTED_STRING,
-                    IonTextParser.LONG_QUOTED_STRING]:
+            if token in [IonTextParser.WHITESPACE, IonTextParser.INLINE_COMMENT, IonTextParser.BLOCK_COMMENT, IonTextParser.QUOTED_SYMBOL, IonTextParser.SHORT_QUOTED_STRING, IonTextParser.LONG_QUOTED_STRING]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 118
                 self.quoted_text()
@@ -845,56 +807,46 @@ class IonTextParser(Parser):
 
     class Keyword_delimiting_entityContext(ParserRuleContext):
 
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def delimiting_entity(self):
-            return self.getTypedRuleContext(
-                IonTextParser.Delimiting_entityContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Delimiting_entityContext,0)
+
 
         def numeric_entity(self):
-            return self.getTypedRuleContext(
-                IonTextParser.Numeric_entityContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Numeric_entityContext,0)
+
 
         def getRuleIndex(self):
             return IonTextParser.RULE_keyword_delimiting_entity
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterKeyword_delimiting_entity"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterKeyword_delimiting_entity" ):
                 listener.enterKeyword_delimiting_entity(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitKeyword_delimiting_entity"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitKeyword_delimiting_entity" ):
                 listener.exitKeyword_delimiting_entity(self)
 
+
+
+
     def keyword_delimiting_entity(self):
-        localctx = IonTextParser.Keyword_delimiting_entityContext(
-                self, self._ctx, self.state)
+
+        localctx = IonTextParser.Keyword_delimiting_entityContext(self, self._ctx, self.state)
         self.enterRule(localctx, 10, self.RULE_keyword_delimiting_entity)
         try:
             self.state = 129
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [
-                    IonTextParser.L_BRACKET, IonTextParser.L_PAREN,
-                    IonTextParser.L_CURLY, IonTextParser.WHITESPACE,
-                    IonTextParser.INLINE_COMMENT, IonTextParser.BLOCK_COMMENT,
-                    IonTextParser.QUOTED_SYMBOL,
-                    IonTextParser.SHORT_QUOTED_STRING,
-                    IonTextParser.LONG_QUOTED_STRING,
-                    IonTextParser.SHORT_QUOTED_CLOB,
-                    IonTextParser.LONG_QUOTED_CLOB, IonTextParser.BLOB]:
+            if token in [IonTextParser.L_BRACKET, IonTextParser.L_PAREN, IonTextParser.L_CURLY, IonTextParser.WHITESPACE, IonTextParser.INLINE_COMMENT, IonTextParser.BLOCK_COMMENT, IonTextParser.QUOTED_SYMBOL, IonTextParser.SHORT_QUOTED_STRING, IonTextParser.LONG_QUOTED_STRING, IonTextParser.SHORT_QUOTED_CLOB, IonTextParser.LONG_QUOTED_CLOB, IonTextParser.BLOB]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 127
                 self.delimiting_entity()
                 pass
-            elif token in [
-                    IonTextParser.TIMESTAMP, IonTextParser.BIN_INTEGER,
-                    IonTextParser.DEC_INTEGER, IonTextParser.HEX_INTEGER,
-                    IonTextParser.FLOAT, IonTextParser.DECIMAL]:
+            elif token in [IonTextParser.TIMESTAMP, IonTextParser.BIN_INTEGER, IonTextParser.DEC_INTEGER, IonTextParser.HEX_INTEGER, IonTextParser.FLOAT, IonTextParser.DECIMAL]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 128
                 self.numeric_entity()
@@ -911,14 +863,14 @@ class IonTextParser(Parser):
         return localctx
 
     class Keyword_entityContext(ParserRuleContext):
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def any_null(self):
-            return self.getTypedRuleContext(IonTextParser.Any_nullContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Any_nullContext,0)
+
 
         def BOOL(self):
             return self.getToken(IonTextParser.BOOL, 0)
@@ -935,18 +887,20 @@ class IonTextParser(Parser):
         def getRuleIndex(self):
             return IonTextParser.RULE_keyword_entity
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterKeyword_entity"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterKeyword_entity" ):
                 listener.enterKeyword_entity(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitKeyword_entity"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitKeyword_entity" ):
                 listener.exitKeyword_entity(self)
+
+
+
 
     def keyword_entity(self):
 
-        localctx = IonTextParser.Keyword_entityContext(
-            self, self._ctx, self.state)
+        localctx = IonTextParser.Keyword_entityContext(self, self._ctx, self.state)
         self.enterRule(localctx, 12, self.RULE_keyword_entity)
         try:
             self.state = 136
@@ -990,9 +944,7 @@ class IonTextParser(Parser):
 
     class Numeric_entityContext(ParserRuleContext):
 
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1017,34 +969,27 @@ class IonTextParser(Parser):
         def getRuleIndex(self):
             return IonTextParser.RULE_numeric_entity
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterNumeric_entity"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterNumeric_entity" ):
                 listener.enterNumeric_entity(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitNumeric_entity"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitNumeric_entity" ):
                 listener.exitNumeric_entity(self)
+
+
+
 
     def numeric_entity(self):
 
-        localctx = IonTextParser.Numeric_entityContext(
-                self, self._ctx, self.state)
+        localctx = IonTextParser.Numeric_entityContext(self, self._ctx, self.state)
         self.enterRule(localctx, 14, self.RULE_numeric_entity)
-        self._la = 0  # Token type
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 138
             _la = self._input.LA(1)
-            if not(
-                    (
-                        ((_la) & ~0x3f) == 0 and (
-                            (1 << _la) & (
-                                (1 << IonTextParser.TIMESTAMP) |
-                                (1 << IonTextParser.BIN_INTEGER) |
-                                (1 << IonTextParser.DEC_INTEGER) |
-                                (1 << IonTextParser.HEX_INTEGER) |
-                                (1 << IonTextParser.FLOAT) |
-                                (1 << IonTextParser.DECIMAL))) != 0)):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << IonTextParser.TIMESTAMP) | (1 << IonTextParser.BIN_INTEGER) | (1 << IonTextParser.DEC_INTEGER) | (1 << IonTextParser.HEX_INTEGER) | (1 << IonTextParser.FLOAT) | (1 << IonTextParser.DECIMAL))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -1059,43 +1004,46 @@ class IonTextParser(Parser):
 
     class AnnotationContext(ParserRuleContext):
 
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def symbol(self):
-            return self.getTypedRuleContext(IonTextParser.SymbolContext, 0)
+            return self.getTypedRuleContext(IonTextParser.SymbolContext,0)
 
-        def COLON(self, i: int=None):
+
+        def COLON(self, i:int=None):
             if i is None:
                 return self.getTokens(IonTextParser.COLON)
             else:
                 return self.getToken(IonTextParser.COLON, i)
 
-        def ws(self, i: int=None):
+        def ws(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(IonTextParser.WsContext)
             else:
-                return self.getTypedRuleContext(IonTextParser.WsContext, i)
+                return self.getTypedRuleContext(IonTextParser.WsContext,i)
+
 
         def getRuleIndex(self):
             return IonTextParser.RULE_annotation
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterAnnotation"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterAnnotation" ):
                 listener.enterAnnotation(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitAnnotation"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitAnnotation" ):
                 listener.exitAnnotation(self)
+
+
+
 
     def annotation(self):
 
         localctx = IonTextParser.AnnotationContext(self, self._ctx, self.state)
         self.enterRule(localctx, 16, self.RULE_annotation)
-        self._la = 0  # Token type
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 140
@@ -1103,12 +1051,7 @@ class IonTextParser(Parser):
             self.state = 144
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (
-                    ((_la) & ~0x3f) == 0 and (
-                        (1 << _la) & (
-                            (1 << IonTextParser.WHITESPACE) |
-                            (1 << IonTextParser.INLINE_COMMENT) |
-                            (1 << IonTextParser.BLOCK_COMMENT))) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << IonTextParser.WHITESPACE) | (1 << IonTextParser.INLINE_COMMENT) | (1 << IonTextParser.BLOCK_COMMENT))) != 0):
                 self.state = 141
                 self.ws()
                 self.state = 146
@@ -1121,14 +1064,14 @@ class IonTextParser(Parser):
             self.match(IonTextParser.COLON)
             self.state = 152
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input, 12, self._ctx)
-            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
-                if _alt == 1:
+            _alt = self._interp.adaptivePredict(self._input,12,self._ctx)
+            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                if _alt==1:
                     self.state = 149
-                    self.ws()
+                    self.ws() 
                 self.state = 154
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input, 12, self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,12,self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -1140,44 +1083,45 @@ class IonTextParser(Parser):
 
     class Quoted_annotationContext(ParserRuleContext):
 
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def QUOTED_SYMBOL(self):
             return self.getToken(IonTextParser.QUOTED_SYMBOL, 0)
 
-        def COLON(self, i: int=None):
+        def COLON(self, i:int=None):
             if i is None:
                 return self.getTokens(IonTextParser.COLON)
             else:
                 return self.getToken(IonTextParser.COLON, i)
 
-        def ws(self, i: int=None):
+        def ws(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(IonTextParser.WsContext)
             else:
-                return self.getTypedRuleContext(IonTextParser.WsContext, i)
+                return self.getTypedRuleContext(IonTextParser.WsContext,i)
+
 
         def getRuleIndex(self):
             return IonTextParser.RULE_quoted_annotation
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterQuoted_annotation"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterQuoted_annotation" ):
                 listener.enterQuoted_annotation(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitQuoted_annotation"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitQuoted_annotation" ):
                 listener.exitQuoted_annotation(self)
+
+
+
 
     def quoted_annotation(self):
 
-        localctx = IonTextParser.Quoted_annotationContext(
-                self, self._ctx, self.state)
+        localctx = IonTextParser.Quoted_annotationContext(self, self._ctx, self.state)
         self.enterRule(localctx, 18, self.RULE_quoted_annotation)
-        self._la = 0  # Token type
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 155
@@ -1185,12 +1129,7 @@ class IonTextParser(Parser):
             self.state = 159
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (
-                    ((_la) & ~0x3f) == 0 and (
-                        (1 << _la) & (
-                            (1 << IonTextParser.WHITESPACE) |
-                            (1 << IonTextParser.INLINE_COMMENT) |
-                            (1 << IonTextParser.BLOCK_COMMENT))) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << IonTextParser.WHITESPACE) | (1 << IonTextParser.INLINE_COMMENT) | (1 << IonTextParser.BLOCK_COMMENT))) != 0):
                 self.state = 156
                 self.ws()
                 self.state = 161
@@ -1203,14 +1142,14 @@ class IonTextParser(Parser):
             self.match(IonTextParser.COLON)
             self.state = 167
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input, 14, self._ctx)
-            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
-                if _alt == 1:
+            _alt = self._interp.adaptivePredict(self._input,14,self._ctx)
+            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                if _alt==1:
                     self.state = 164
-                    self.ws()
+                    self.ws() 
                 self.state = 169
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input, 14, self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,14,self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -1222,31 +1161,31 @@ class IonTextParser(Parser):
 
     class List_typeContext(ParserRuleContext):
 
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def L_BRACKET(self):
             return self.getToken(IonTextParser.L_BRACKET, 0)
 
-        def value(self, i: int=None):
+        def value(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(IonTextParser.ValueContext)
             else:
-                return self.getTypedRuleContext(IonTextParser.ValueContext, i)
+                return self.getTypedRuleContext(IonTextParser.ValueContext,i)
+
 
         def R_BRACKET(self):
             return self.getToken(IonTextParser.R_BRACKET, 0)
 
-        def ws(self, i: int=None):
+        def ws(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(IonTextParser.WsContext)
             else:
-                return self.getTypedRuleContext(IonTextParser.WsContext, i)
+                return self.getTypedRuleContext(IonTextParser.WsContext,i)
 
-        def COMMA(self, i: int=None):
+
+        def COMMA(self, i:int=None):
             if i is None:
                 return self.getTokens(IonTextParser.COMMA)
             else:
@@ -1255,88 +1194,82 @@ class IonTextParser(Parser):
         def getRuleIndex(self):
             return IonTextParser.RULE_list_type
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterList_type"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterList_type" ):
                 listener.enterList_type(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitList_type"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitList_type" ):
                 listener.exitList_type(self)
 
+
+
+
     def list_type(self):
+
         localctx = IonTextParser.List_typeContext(self, self._ctx, self.state)
         self.enterRule(localctx, 20, self.RULE_list_type)
-        self._la = 0  # Token type
+        self._la = 0 # Token type
         try:
             self.state = 222
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input, 23, self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,23,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 170
                 self.match(IonTextParser.L_BRACKET)
                 self.state = 174
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input, 15, self._ctx)
-                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
-                    if _alt == 1:
+                _alt = self._interp.adaptivePredict(self._input,15,self._ctx)
+                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                    if _alt==1:
                         self.state = 171
-                        self.ws()
+                        self.ws() 
                     self.state = 176
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(
-                        self._input, 15, self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input,15,self._ctx)
 
                 self.state = 177
                 self.value()
                 self.state = 181
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input, 16, self._ctx)
-                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
-                    if _alt == 1:
+                _alt = self._interp.adaptivePredict(self._input,16,self._ctx)
+                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                    if _alt==1:
                         self.state = 178
-                        self.ws()
+                        self.ws() 
                     self.state = 183
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(
-                        self._input, 16, self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input,16,self._ctx)
 
                 self.state = 194
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input, 18, self._ctx)
-                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
-                    if _alt == 1:
+                _alt = self._interp.adaptivePredict(self._input,18,self._ctx)
+                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                    if _alt==1:
                         self.state = 184
                         self.match(IonTextParser.COMMA)
                         self.state = 188
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(
-                            self._input, 17, self._ctx)
-                        while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
-                            if _alt == 1:
+                        _alt = self._interp.adaptivePredict(self._input,17,self._ctx)
+                        while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                            if _alt==1:
                                 self.state = 185
-                                self.ws()
+                                self.ws() 
                             self.state = 190
                             self._errHandler.sync(self)
-                            _alt = self._interp.adaptivePredict(
-                                self._input, 17, self._ctx)
+                            _alt = self._interp.adaptivePredict(self._input,17,self._ctx)
 
                         self.state = 191
-                        self.value()
+                        self.value() 
                     self.state = 196
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(
-                        self._input, 18, self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input,18,self._ctx)
 
                 self.state = 200
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while (
-                        ((_la) & ~0x3f) == 0 and (
-                            (1 << _la) & (
-                                (1 << IonTextParser.WHITESPACE) |
-                                (1 << IonTextParser.INLINE_COMMENT) |
-                                (1 << IonTextParser.BLOCK_COMMENT))) != 0):
+                while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << IonTextParser.WHITESPACE) | (1 << IonTextParser.INLINE_COMMENT) | (1 << IonTextParser.BLOCK_COMMENT))) != 0):
                     self.state = 197
                     self.ws()
                     self.state = 202
@@ -1346,23 +1279,20 @@ class IonTextParser(Parser):
                 self.state = 210
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la == IonTextParser.COMMA:
+                if _la==IonTextParser.COMMA:
                     self.state = 203
                     self.match(IonTextParser.COMMA)
                     self.state = 207
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    while (
-                            ((_la) & ~0x3f) == 0 and (
-                                (1 << _la) & (
-                                    (1 << IonTextParser.WHITESPACE) |
-                                    (1 << IonTextParser.INLINE_COMMENT) |
-                                    (1 << IonTextParser.BLOCK_COMMENT))) != 0):
+                    while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << IonTextParser.WHITESPACE) | (1 << IonTextParser.INLINE_COMMENT) | (1 << IonTextParser.BLOCK_COMMENT))) != 0):
                         self.state = 204
                         self.ws()
                         self.state = 209
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
+
+
 
                 self.state = 212
                 self.match(IonTextParser.R_BRACKET)
@@ -1375,12 +1305,7 @@ class IonTextParser(Parser):
                 self.state = 218
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while (
-                        ((_la) & ~0x3f) == 0 and (
-                            (1 << _la) & (
-                                (1 << IonTextParser.WHITESPACE) |
-                                (1 << IonTextParser.INLINE_COMMENT) |
-                                (1 << IonTextParser.BLOCK_COMMENT))) != 0):
+                while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << IonTextParser.WHITESPACE) | (1 << IonTextParser.INLINE_COMMENT) | (1 << IonTextParser.BLOCK_COMMENT))) != 0):
                     self.state = 215
                     self.ws()
                     self.state = 220
@@ -1390,6 +1315,7 @@ class IonTextParser(Parser):
                 self.state = 221
                 self.match(IonTextParser.R_BRACKET)
                 pass
+
 
         except RecognitionException as re:
             localctx.exception = re
@@ -1401,9 +1327,7 @@ class IonTextParser(Parser):
 
     class SexpContext(ParserRuleContext):
 
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1413,109 +1337,87 @@ class IonTextParser(Parser):
         def R_PAREN(self):
             return self.getToken(IonTextParser.R_PAREN, 0)
 
-        def sexp_value(self, i: int=None):
+        def sexp_value(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(
-                    IonTextParser.Sexp_valueContext)
+                return self.getTypedRuleContexts(IonTextParser.Sexp_valueContext)
             else:
-                return self.getTypedRuleContext(
-                    IonTextParser.Sexp_valueContext, i)
+                return self.getTypedRuleContext(IonTextParser.Sexp_valueContext,i)
 
-        def ws(self, i: int=None):
+
+        def ws(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(IonTextParser.WsContext)
             else:
-                return self.getTypedRuleContext(IonTextParser.WsContext, i)
+                return self.getTypedRuleContext(IonTextParser.WsContext,i)
+
 
         def value(self):
-            return self.getTypedRuleContext(IonTextParser.ValueContext, 0)
+            return self.getTypedRuleContext(IonTextParser.ValueContext,0)
+
 
         def getRuleIndex(self):
             return IonTextParser.RULE_sexp
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterSexp"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterSexp" ):
                 listener.enterSexp(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitSexp"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitSexp" ):
                 listener.exitSexp(self)
+
+
+
 
     def sexp(self):
 
         localctx = IonTextParser.SexpContext(self, self._ctx, self.state)
         self.enterRule(localctx, 22, self.RULE_sexp)
-        self._la = 0  # Token type
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 224
             self.match(IonTextParser.L_PAREN)
             self.state = 234
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input, 25, self._ctx)
-            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
-                if _alt == 1:
+            _alt = self._interp.adaptivePredict(self._input,25,self._ctx)
+            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                if _alt==1:
                     self.state = 228
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(
-                        self._input, 24, self._ctx)
-                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
-                        if _alt == 1:
+                    _alt = self._interp.adaptivePredict(self._input,24,self._ctx)
+                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                        if _alt==1:
                             self.state = 225
-                            self.ws()
+                            self.ws() 
                         self.state = 230
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(
-                            self._input, 24, self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input,24,self._ctx)
 
                     self.state = 231
-                    self.sexp_value()
+                    self.sexp_value() 
                 self.state = 236
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input, 25, self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,25,self._ctx)
 
             self.state = 240
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input, 26, self._ctx)
-            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
-                if _alt == 1:
+            _alt = self._interp.adaptivePredict(self._input,26,self._ctx)
+            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                if _alt==1:
                     self.state = 237
-                    self.ws()
+                    self.ws() 
                 self.state = 242
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input, 26, self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,26,self._ctx)
 
             self.state = 244
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (
-                    ((_la) & ~0x3f) == 0 and (
-                        (1 << _la) & (
-                            (1 << IonTextParser.L_BRACKET) |
-                            (1 << IonTextParser.L_PAREN) |
-                            (1 << IonTextParser.L_CURLY) |
-                            (1 << IonTextParser.WHITESPACE) |
-                            (1 << IonTextParser.INLINE_COMMENT) |
-                            (1 << IonTextParser.BLOCK_COMMENT) |
-                            (1 << IonTextParser.NULL) |
-                            (1 << IonTextParser.TYPE) |
-                            (1 << IonTextParser.BOOL) |
-                            (1 << IonTextParser.TIMESTAMP) |
-                            (1 << IonTextParser.BIN_INTEGER) |
-                            (1 << IonTextParser.DEC_INTEGER) |
-                            (1 << IonTextParser.HEX_INTEGER) |
-                            (1 << IonTextParser.SPECIAL_FLOAT) |
-                            (1 << IonTextParser.FLOAT) |
-                            (1 << IonTextParser.DECIMAL) |
-                            (1 << IonTextParser.QUOTED_SYMBOL) |
-                            (1 << IonTextParser.IDENTIFIER_SYMBOL) |
-                            (1 << IonTextParser.SHORT_QUOTED_STRING) |
-                            (1 << IonTextParser.LONG_QUOTED_STRING) |
-                            (1 << IonTextParser.SHORT_QUOTED_CLOB) |
-                            (1 << IonTextParser.LONG_QUOTED_CLOB) |
-                            (1 << IonTextParser.BLOB))) != 0):
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << IonTextParser.L_BRACKET) | (1 << IonTextParser.L_PAREN) | (1 << IonTextParser.L_CURLY) | (1 << IonTextParser.WHITESPACE) | (1 << IonTextParser.INLINE_COMMENT) | (1 << IonTextParser.BLOCK_COMMENT) | (1 << IonTextParser.NULL) | (1 << IonTextParser.TYPE) | (1 << IonTextParser.BOOL) | (1 << IonTextParser.TIMESTAMP) | (1 << IonTextParser.BIN_INTEGER) | (1 << IonTextParser.DEC_INTEGER) | (1 << IonTextParser.HEX_INTEGER) | (1 << IonTextParser.SPECIAL_FLOAT) | (1 << IonTextParser.FLOAT) | (1 << IonTextParser.DECIMAL) | (1 << IonTextParser.QUOTED_SYMBOL) | (1 << IonTextParser.IDENTIFIER_SYMBOL) | (1 << IonTextParser.SHORT_QUOTED_STRING) | (1 << IonTextParser.LONG_QUOTED_STRING) | (1 << IonTextParser.SHORT_QUOTED_CLOB) | (1 << IonTextParser.LONG_QUOTED_CLOB) | (1 << IonTextParser.BLOB))) != 0):
                 self.state = 243
                 self.value()
+
 
             self.state = 246
             self.match(IonTextParser.R_PAREN)
@@ -1529,69 +1431,73 @@ class IonTextParser(Parser):
 
     class Sexp_valueContext(ParserRuleContext):
 
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def sexp_value(self):
-            return self.getTypedRuleContext(IonTextParser.Sexp_valueContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Sexp_valueContext,0)
 
-        def annotation(self, i: int=None):
+
+        def annotation(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(
-                    IonTextParser.AnnotationContext)
+                return self.getTypedRuleContexts(IonTextParser.AnnotationContext)
             else:
-                return self.getTypedRuleContext(
-                    IonTextParser.AnnotationContext, i)
+                return self.getTypedRuleContext(IonTextParser.AnnotationContext,i)
+
 
         def sexp_delimiting_entity(self):
-            return self.getTypedRuleContext(
-                IonTextParser.Sexp_delimiting_entityContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Sexp_delimiting_entityContext,0)
+
 
         def operator(self):
-            return self.getTypedRuleContext(IonTextParser.OperatorContext, 0)
+            return self.getTypedRuleContext(IonTextParser.OperatorContext,0)
+
 
         def numeric_entity(self):
-            return self.getTypedRuleContext(
-                IonTextParser.Numeric_entityContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Numeric_entityContext,0)
+
 
         def ws(self):
-            return self.getTypedRuleContext(IonTextParser.WsContext, 0)
+            return self.getTypedRuleContext(IonTextParser.WsContext,0)
+
 
         def quoted_annotation(self):
-            return self.getTypedRuleContext(
-                IonTextParser.Quoted_annotationContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Quoted_annotationContext,0)
+
 
         def value(self):
-            return self.getTypedRuleContext(IonTextParser.ValueContext, 0)
+            return self.getTypedRuleContext(IonTextParser.ValueContext,0)
+
 
         def sexp_keyword_entity(self):
-            return self.getTypedRuleContext(
-                IonTextParser.Sexp_keyword_entityContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Sexp_keyword_entityContext,0)
+
 
         def sexp_keyword_delimiting_entity(self):
-            return self.getTypedRuleContext(
-                IonTextParser.Sexp_keyword_delimiting_entityContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Sexp_keyword_delimiting_entityContext,0)
+
 
         def NULL(self):
             return self.getToken(IonTextParser.NULL, 0)
 
         def sexp_null_delimiting_entity(self):
-            return self.getTypedRuleContext(
-                IonTextParser.Sexp_null_delimiting_entityContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Sexp_null_delimiting_entityContext,0)
+
 
         def getRuleIndex(self):
             return IonTextParser.RULE_sexp_value
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterSexp_value"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterSexp_value" ):
                 listener.enterSexp_value(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitSexp_value"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitSexp_value" ):
                 listener.exitSexp_value(self)
+
+
+
 
     def sexp_value(self):
 
@@ -1600,23 +1506,22 @@ class IonTextParser(Parser):
         try:
             self.state = 285
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input, 29, self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,29,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 249
+                self.state = 249 
                 self._errHandler.sync(self)
                 _alt = 1
-                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                     if _alt == 1:
                         self.state = 248
                         self.annotation()
 
                     else:
                         raise NoViableAltException(self)
-                    self.state = 251
+                    self.state = 251 
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(
-                        self._input, 28, self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input,28,self._ctx)
 
                 self.state = 253
                 self.sexp_value()
@@ -1712,6 +1617,7 @@ class IonTextParser(Parser):
                 self.sexp_null_delimiting_entity()
                 pass
 
+
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1722,31 +1628,31 @@ class IonTextParser(Parser):
 
     class Sexp_delimiting_entityContext(ParserRuleContext):
 
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def delimiting_entity(self):
-            return self.getTypedRuleContext(
-                IonTextParser.Delimiting_entityContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Delimiting_entityContext,0)
+
 
         def getRuleIndex(self):
             return IonTextParser.RULE_sexp_delimiting_entity
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterSexp_delimiting_entity"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterSexp_delimiting_entity" ):
                 listener.enterSexp_delimiting_entity(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitSexp_delimiting_entity"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitSexp_delimiting_entity" ):
                 listener.exitSexp_delimiting_entity(self)
+
+
+
 
     def sexp_delimiting_entity(self):
 
-        localctx = IonTextParser.Sexp_delimiting_entityContext(
-            self, self._ctx, self.state)
+        localctx = IonTextParser.Sexp_delimiting_entityContext(self, self._ctx, self.state)
         self.enterRule(localctx, 26, self.RULE_sexp_delimiting_entity)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -1761,60 +1667,51 @@ class IonTextParser(Parser):
         return localctx
 
     class Sexp_keyword_delimiting_entityContext(ParserRuleContext):
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def sexp_delimiting_entity(self):
-            return self.getTypedRuleContext(
-                IonTextParser.Sexp_delimiting_entityContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Sexp_delimiting_entityContext,0)
+
 
         def numeric_entity(self):
-            return self.getTypedRuleContext(
-                IonTextParser.Numeric_entityContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Numeric_entityContext,0)
+
 
         def operator(self):
-            return self.getTypedRuleContext(IonTextParser.OperatorContext, 0)
+            return self.getTypedRuleContext(IonTextParser.OperatorContext,0)
+
 
         def getRuleIndex(self):
             return IonTextParser.RULE_sexp_keyword_delimiting_entity
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterSexp_keyword_delimiting_entity"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterSexp_keyword_delimiting_entity" ):
                 listener.enterSexp_keyword_delimiting_entity(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitSexp_keyword_delimiting_entity"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitSexp_keyword_delimiting_entity" ):
                 listener.exitSexp_keyword_delimiting_entity(self)
+
+
+
 
     def sexp_keyword_delimiting_entity(self):
 
-        localctx = IonTextParser.Sexp_keyword_delimiting_entityContext(
-            self, self._ctx, self.state)
+        localctx = IonTextParser.Sexp_keyword_delimiting_entityContext(self, self._ctx, self.state)
         self.enterRule(localctx, 28, self.RULE_sexp_keyword_delimiting_entity)
         try:
             self.state = 292
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [
-                    IonTextParser.L_BRACKET, IonTextParser.L_PAREN,
-                    IonTextParser.L_CURLY, IonTextParser.WHITESPACE,
-                    IonTextParser.INLINE_COMMENT, IonTextParser.BLOCK_COMMENT,
-                    IonTextParser.QUOTED_SYMBOL,
-                    IonTextParser.SHORT_QUOTED_STRING,
-                    IonTextParser.LONG_QUOTED_STRING,
-                    IonTextParser.SHORT_QUOTED_CLOB,
-                    IonTextParser.LONG_QUOTED_CLOB, IonTextParser.BLOB]:
+            if token in [IonTextParser.L_BRACKET, IonTextParser.L_PAREN, IonTextParser.L_CURLY, IonTextParser.WHITESPACE, IonTextParser.INLINE_COMMENT, IonTextParser.BLOCK_COMMENT, IonTextParser.QUOTED_SYMBOL, IonTextParser.SHORT_QUOTED_STRING, IonTextParser.LONG_QUOTED_STRING, IonTextParser.SHORT_QUOTED_CLOB, IonTextParser.LONG_QUOTED_CLOB, IonTextParser.BLOB]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 289
                 self.sexp_delimiting_entity()
                 pass
-            elif token in [
-                    IonTextParser.TIMESTAMP, IonTextParser.BIN_INTEGER,
-                    IonTextParser.DEC_INTEGER, IonTextParser.HEX_INTEGER,
-                    IonTextParser.FLOAT, IonTextParser.DECIMAL]:
+            elif token in [IonTextParser.TIMESTAMP, IonTextParser.BIN_INTEGER, IonTextParser.DEC_INTEGER, IonTextParser.HEX_INTEGER, IonTextParser.FLOAT, IonTextParser.DECIMAL]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 290
                 self.numeric_entity()
@@ -1837,17 +1734,15 @@ class IonTextParser(Parser):
 
     class Sexp_null_delimiting_entityContext(ParserRuleContext):
 
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def delimiting_entity(self):
-            return self.getTypedRuleContext(
-                IonTextParser.Delimiting_entityContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Delimiting_entityContext,0)
 
-        def NON_DOT_OPERATOR(self, i: int=None):
+
+        def NON_DOT_OPERATOR(self, i:int=None):
             if i is None:
                 return self.getTokens(IonTextParser.NON_DOT_OPERATOR)
             else:
@@ -1856,50 +1751,45 @@ class IonTextParser(Parser):
         def getRuleIndex(self):
             return IonTextParser.RULE_sexp_null_delimiting_entity
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterSexp_null_delimiting_entity"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterSexp_null_delimiting_entity" ):
                 listener.enterSexp_null_delimiting_entity(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitSexp_null_delimiting_entity"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitSexp_null_delimiting_entity" ):
                 listener.exitSexp_null_delimiting_entity(self)
 
+
+
+
     def sexp_null_delimiting_entity(self):
-        localctx = IonTextParser.Sexp_null_delimiting_entityContext(
-            self, self._ctx, self.state)
+
+        localctx = IonTextParser.Sexp_null_delimiting_entityContext(self, self._ctx, self.state)
         self.enterRule(localctx, 30, self.RULE_sexp_null_delimiting_entity)
         try:
             self.state = 300
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [
-                    IonTextParser.L_BRACKET, IonTextParser.L_PAREN,
-                    IonTextParser.L_CURLY, IonTextParser.WHITESPACE,
-                    IonTextParser.INLINE_COMMENT, IonTextParser.BLOCK_COMMENT,
-                    IonTextParser.QUOTED_SYMBOL,
-                    IonTextParser.SHORT_QUOTED_STRING,
-                    IonTextParser.LONG_QUOTED_STRING,
-                    IonTextParser.SHORT_QUOTED_CLOB,
-                    IonTextParser.LONG_QUOTED_CLOB, IonTextParser.BLOB]:
+            if token in [IonTextParser.L_BRACKET, IonTextParser.L_PAREN, IonTextParser.L_CURLY, IonTextParser.WHITESPACE, IonTextParser.INLINE_COMMENT, IonTextParser.BLOCK_COMMENT, IonTextParser.QUOTED_SYMBOL, IonTextParser.SHORT_QUOTED_STRING, IonTextParser.LONG_QUOTED_STRING, IonTextParser.SHORT_QUOTED_CLOB, IonTextParser.LONG_QUOTED_CLOB, IonTextParser.BLOB]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 294
                 self.delimiting_entity()
                 pass
             elif token in [IonTextParser.NON_DOT_OPERATOR]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 296
+                self.state = 296 
                 self._errHandler.sync(self)
                 _alt = 1
-                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                     if _alt == 1:
                         self.state = 295
                         self.match(IonTextParser.NON_DOT_OPERATOR)
+
                     else:
                         raise NoViableAltException(self)
-                    self.state = 298
+                    self.state = 298 
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(
-                        self._input, 31, self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input,31,self._ctx)
 
                 pass
             else:
@@ -1915,14 +1805,13 @@ class IonTextParser(Parser):
 
     class Sexp_keyword_entityContext(ParserRuleContext):
 
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def typed_null(self):
-            return self.getTypedRuleContext(IonTextParser.Typed_nullContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Typed_nullContext,0)
+
 
         def BOOL(self):
             return self.getToken(IonTextParser.BOOL, 0)
@@ -1939,17 +1828,20 @@ class IonTextParser(Parser):
         def getRuleIndex(self):
             return IonTextParser.RULE_sexp_keyword_entity
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterSexp_keyword_entity"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterSexp_keyword_entity" ):
                 listener.enterSexp_keyword_entity(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitSexp_keyword_entity"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitSexp_keyword_entity" ):
                 listener.exitSexp_keyword_entity(self)
 
+
+
+
     def sexp_keyword_entity(self):
-        localctx = IonTextParser.Sexp_keyword_entityContext(
-            self, self._ctx, self.state)
+
+        localctx = IonTextParser.Sexp_keyword_entityContext(self, self._ctx, self.state)
         self.enterRule(localctx, 32, self.RULE_sexp_keyword_entity)
         try:
             self.state = 307
@@ -1992,19 +1884,18 @@ class IonTextParser(Parser):
         return localctx
 
     class OperatorContext(ParserRuleContext):
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def DOT(self, i: int=None):
+        def DOT(self, i:int=None):
             if i is None:
                 return self.getTokens(IonTextParser.DOT)
             else:
                 return self.getToken(IonTextParser.DOT, i)
 
-        def NON_DOT_OPERATOR(self, i: int=None):
+        def NON_DOT_OPERATOR(self, i:int=None):
             if i is None:
                 return self.getTokens(IonTextParser.NON_DOT_OPERATOR)
             else:
@@ -2013,39 +1904,43 @@ class IonTextParser(Parser):
         def getRuleIndex(self):
             return IonTextParser.RULE_operator
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterOperator"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterOperator" ):
                 listener.enterOperator(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitOperator"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitOperator" ):
                 listener.exitOperator(self)
 
+
+
+
     def operator(self):
+
         localctx = IonTextParser.OperatorContext(self, self._ctx, self.state)
         self.enterRule(localctx, 34, self.RULE_operator)
-        self._la = 0  # Token type
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 310
+            self.state = 310 
             self._errHandler.sync(self)
             _alt = 1
-            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt == 1:
                     self.state = 309
                     _la = self._input.LA(1)
-                    if not (
-                            _la == IonTextParser.DOT or
-                            _la == IonTextParser.NON_DOT_OPERATOR):
+                    if not(_la==IonTextParser.DOT or _la==IonTextParser.NON_DOT_OPERATOR):
                         self._errHandler.recoverInline(self)
                     else:
                         self._errHandler.reportMatch(self)
                         self.consume()
+
                 else:
                     raise NoViableAltException(self)
-                self.state = 312
+                self.state = 312 
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input, 34, self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,34,self._ctx)
+
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2055,31 +1950,32 @@ class IonTextParser(Parser):
         return localctx
 
     class StructContext(ParserRuleContext):
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def L_CURLY(self):
             return self.getToken(IonTextParser.L_CURLY, 0)
 
-        def field(self, i: int=None):
+        def field(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(IonTextParser.FieldContext)
             else:
-                return self.getTypedRuleContext(IonTextParser.FieldContext, i)
+                return self.getTypedRuleContext(IonTextParser.FieldContext,i)
+
 
         def R_CURLY(self):
             return self.getToken(IonTextParser.R_CURLY, 0)
 
-        def ws(self, i: int=None):
+        def ws(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(IonTextParser.WsContext)
             else:
-                return self.getTypedRuleContext(IonTextParser.WsContext, i)
+                return self.getTypedRuleContext(IonTextParser.WsContext,i)
 
-        def COMMA(self, i: int=None):
+
+        def COMMA(self, i:int=None):
             if i is None:
                 return self.getTokens(IonTextParser.COMMA)
             else:
@@ -2088,55 +1984,52 @@ class IonTextParser(Parser):
         def getRuleIndex(self):
             return IonTextParser.RULE_struct
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterStruct"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterStruct" ):
                 listener.enterStruct(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitStruct"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitStruct" ):
                 listener.exitStruct(self)
 
+
+
+
     def struct(self):
+
         localctx = IonTextParser.StructContext(self, self._ctx, self.state)
         self.enterRule(localctx, 36, self.RULE_struct)
-        self._la = 0  # Token type
+        self._la = 0 # Token type
         try:
             self.state = 366
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input, 43, self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,43,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 314
                 self.match(IonTextParser.L_CURLY)
                 self.state = 318
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input, 35, self._ctx)
-                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
-                    if _alt == 1:
+                _alt = self._interp.adaptivePredict(self._input,35,self._ctx)
+                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                    if _alt==1:
                         self.state = 315
-                        self.ws()
+                        self.ws() 
                     self.state = 320
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(
-                        self._input, 35, self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input,35,self._ctx)
 
                 self.state = 321
                 self.field()
                 self.state = 338
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input, 38, self._ctx)
-                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
-                    if _alt == 1:
+                _alt = self._interp.adaptivePredict(self._input,38,self._ctx)
+                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                    if _alt==1:
                         self.state = 325
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while (
-                                ((_la) & ~0x3f) == 0 and (
-                                    (1 << _la) & (
-                                        (1 << IonTextParser.WHITESPACE) |
-                                        (1 << IonTextParser.INLINE_COMMENT) |
-                                        (1 << IonTextParser.BLOCK_COMMENT))
-                                    ) != 0):
+                        while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << IonTextParser.WHITESPACE) | (1 << IonTextParser.INLINE_COMMENT) | (1 << IonTextParser.BLOCK_COMMENT))) != 0):
                             self.state = 322
                             self.ws()
                             self.state = 327
@@ -2147,33 +2040,25 @@ class IonTextParser(Parser):
                         self.match(IonTextParser.COMMA)
                         self.state = 332
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(
-                            self._input, 37, self._ctx)
-                        while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
-                            if _alt == 1:
+                        _alt = self._interp.adaptivePredict(self._input,37,self._ctx)
+                        while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                            if _alt==1:
                                 self.state = 329
-                                self.ws()
+                                self.ws() 
                             self.state = 334
                             self._errHandler.sync(self)
-                            _alt = self._interp.adaptivePredict(
-                                self._input, 37, self._ctx)
+                            _alt = self._interp.adaptivePredict(self._input,37,self._ctx)
 
                         self.state = 335
-                        self.field()
+                        self.field() 
                     self.state = 340
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(
-                        self._input, 38, self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input,38,self._ctx)
 
                 self.state = 344
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while (
-                        ((_la) & ~0x3f) == 0 and (
-                            (1 << _la) & (
-                                (1 << IonTextParser.WHITESPACE) |
-                                (1 << IonTextParser.INLINE_COMMENT) |
-                                (1 << IonTextParser.BLOCK_COMMENT))) != 0):
+                while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << IonTextParser.WHITESPACE) | (1 << IonTextParser.INLINE_COMMENT) | (1 << IonTextParser.BLOCK_COMMENT))) != 0):
                     self.state = 341
                     self.ws()
                     self.state = 346
@@ -2183,23 +2068,20 @@ class IonTextParser(Parser):
                 self.state = 354
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la == IonTextParser.COMMA:
+                if _la==IonTextParser.COMMA:
                     self.state = 347
                     self.match(IonTextParser.COMMA)
                     self.state = 351
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    while (
-                            ((_la) & ~0x3f) == 0 and (
-                                (1 << _la) & (
-                                    (1 << IonTextParser.WHITESPACE) |
-                                    (1 << IonTextParser.INLINE_COMMENT) |
-                                    (1 << IonTextParser.BLOCK_COMMENT))) != 0):
+                    while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << IonTextParser.WHITESPACE) | (1 << IonTextParser.INLINE_COMMENT) | (1 << IonTextParser.BLOCK_COMMENT))) != 0):
                         self.state = 348
                         self.ws()
                         self.state = 353
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
+
+
 
                 self.state = 356
                 self.match(IonTextParser.R_CURLY)
@@ -2212,12 +2094,7 @@ class IonTextParser(Parser):
                 self.state = 362
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while (
-                        ((_la) & ~0x3f) == 0 and (
-                            (1 << _la) & (
-                                (1 << IonTextParser.WHITESPACE) |
-                                (1 << IonTextParser.INLINE_COMMENT) |
-                                (1 << IonTextParser.BLOCK_COMMENT))) != 0):
+                while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << IonTextParser.WHITESPACE) | (1 << IonTextParser.INLINE_COMMENT) | (1 << IonTextParser.BLOCK_COMMENT))) != 0):
                     self.state = 359
                     self.ws()
                     self.state = 364
@@ -2228,6 +2105,7 @@ class IonTextParser(Parser):
                 self.match(IonTextParser.R_CURLY)
                 pass
 
+
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2237,50 +2115,55 @@ class IonTextParser(Parser):
         return localctx
 
     class FieldContext(ParserRuleContext):
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def field_name(self):
-            return self.getTypedRuleContext(IonTextParser.Field_nameContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Field_nameContext,0)
+
 
         def COLON(self):
             return self.getToken(IonTextParser.COLON, 0)
 
         def entity(self):
-            return self.getTypedRuleContext(IonTextParser.EntityContext, 0)
+            return self.getTypedRuleContext(IonTextParser.EntityContext,0)
 
-        def ws(self, i: int=None):
+
+        def ws(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(IonTextParser.WsContext)
             else:
-                return self.getTypedRuleContext(IonTextParser.WsContext, i)
+                return self.getTypedRuleContext(IonTextParser.WsContext,i)
 
-        def annotation(self, i: int=None):
+
+        def annotation(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(
-                    IonTextParser.AnnotationContext)
+                return self.getTypedRuleContexts(IonTextParser.AnnotationContext)
             else:
-                return self.getTypedRuleContext(
-                    IonTextParser.AnnotationContext, i)
+                return self.getTypedRuleContext(IonTextParser.AnnotationContext,i)
+
 
         def getRuleIndex(self):
             return IonTextParser.RULE_field
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterField"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterField" ):
                 listener.enterField(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitField"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitField" ):
                 listener.exitField(self)
 
+
+
+
     def field(self):
+
         localctx = IonTextParser.FieldContext(self, self._ctx, self.state)
         self.enterRule(localctx, 38, self.RULE_field)
-        self._la = 0  # Token type
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 368
@@ -2288,12 +2171,7 @@ class IonTextParser(Parser):
             self.state = 372
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (
-                    ((_la) & ~0x3f) == 0 and (
-                        (1 << _la) & (
-                            (1 << IonTextParser.WHITESPACE) |
-                            (1 << IonTextParser.INLINE_COMMENT) |
-                            (1 << IonTextParser.BLOCK_COMMENT))) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << IonTextParser.WHITESPACE) | (1 << IonTextParser.INLINE_COMMENT) | (1 << IonTextParser.BLOCK_COMMENT))) != 0):
                 self.state = 369
                 self.ws()
                 self.state = 374
@@ -2304,25 +2182,25 @@ class IonTextParser(Parser):
             self.match(IonTextParser.COLON)
             self.state = 379
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input, 45, self._ctx)
-            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
-                if _alt == 1:
+            _alt = self._interp.adaptivePredict(self._input,45,self._ctx)
+            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                if _alt==1:
                     self.state = 376
-                    self.ws()
+                    self.ws() 
                 self.state = 381
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input, 45, self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,45,self._ctx)
 
             self.state = 385
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input, 46, self._ctx)
-            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
-                if _alt == 1:
+            _alt = self._interp.adaptivePredict(self._input,46,self._ctx)
+            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                if _alt==1:
                     self.state = 382
-                    self.annotation()
+                    self.annotation() 
                 self.state = 387
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input, 46, self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,46,self._ctx)
 
             self.state = 388
             self.entity()
@@ -2335,9 +2213,8 @@ class IonTextParser(Parser):
         return localctx
 
     class Any_nullContext(ParserRuleContext):
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2345,26 +2222,31 @@ class IonTextParser(Parser):
             return self.getToken(IonTextParser.NULL, 0)
 
         def typed_null(self):
-            return self.getTypedRuleContext(IonTextParser.Typed_nullContext, 0)
+            return self.getTypedRuleContext(IonTextParser.Typed_nullContext,0)
+
 
         def getRuleIndex(self):
             return IonTextParser.RULE_any_null
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterAny_null"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterAny_null" ):
                 listener.enterAny_null(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitAny_null"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitAny_null" ):
                 listener.exitAny_null(self)
 
+
+
+
     def any_null(self):
+
         localctx = IonTextParser.Any_nullContext(self, self._ctx, self.state)
         self.enterRule(localctx, 40, self.RULE_any_null)
         try:
             self.state = 392
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input, 47, self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,47,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 390
@@ -2377,6 +2259,7 @@ class IonTextParser(Parser):
                 self.typed_null()
                 pass
 
+
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2386,13 +2269,12 @@ class IonTextParser(Parser):
         return localctx
 
     class Typed_nullContext(ParserRuleContext):
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def NULL(self, i: int=None):
+        def NULL(self, i:int=None):
             if i is None:
                 return self.getTokens(IonTextParser.NULL)
             else:
@@ -2407,21 +2289,25 @@ class IonTextParser(Parser):
         def getRuleIndex(self):
             return IonTextParser.RULE_typed_null
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterTyped_null"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterTyped_null" ):
                 listener.enterTyped_null(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitTyped_null"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitTyped_null" ):
                 listener.exitTyped_null(self)
 
+
+
+
     def typed_null(self):
+
         localctx = IonTextParser.Typed_nullContext(self, self._ctx, self.state)
         self.enterRule(localctx, 42, self.RULE_typed_null)
         try:
             self.state = 400
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input, 48, self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,48,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 394
@@ -2442,6 +2328,7 @@ class IonTextParser(Parser):
                 self.match(IonTextParser.TYPE)
                 pass
 
+
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2451,52 +2338,55 @@ class IonTextParser(Parser):
         return localctx
 
     class Field_nameContext(ParserRuleContext):
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def symbol(self):
-            return self.getTypedRuleContext(IonTextParser.SymbolContext, 0)
+            return self.getTypedRuleContext(IonTextParser.SymbolContext,0)
+
 
         def SHORT_QUOTED_STRING(self):
             return self.getToken(IonTextParser.SHORT_QUOTED_STRING, 0)
 
-        def LONG_QUOTED_STRING(self, i: int=None):
+        def LONG_QUOTED_STRING(self, i:int=None):
             if i is None:
                 return self.getTokens(IonTextParser.LONG_QUOTED_STRING)
             else:
                 return self.getToken(IonTextParser.LONG_QUOTED_STRING, i)
 
-        def ws(self, i: int=None):
+        def ws(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(IonTextParser.WsContext)
             else:
-                return self.getTypedRuleContext(IonTextParser.WsContext, i)
+                return self.getTypedRuleContext(IonTextParser.WsContext,i)
+
 
         def getRuleIndex(self):
             return IonTextParser.RULE_field_name
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterField_name"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterField_name" ):
                 listener.enterField_name(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitField_name"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitField_name" ):
                 listener.exitField_name(self)
 
+
+
+
     def field_name(self):
+
         localctx = IonTextParser.Field_nameContext(self, self._ctx, self.state)
         self.enterRule(localctx, 44, self.RULE_field_name)
-        self._la = 0  # Token type
+        self._la = 0 # Token type
         try:
             self.state = 415
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [
-                    IonTextParser.TYPE, IonTextParser.QUOTED_SYMBOL,
-                    IonTextParser.IDENTIFIER_SYMBOL]:
+            if token in [IonTextParser.TYPE, IonTextParser.QUOTED_SYMBOL, IonTextParser.IDENTIFIER_SYMBOL]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 402
                 self.symbol()
@@ -2506,26 +2396,17 @@ class IonTextParser(Parser):
                 self.state = 403
                 self.match(IonTextParser.SHORT_QUOTED_STRING)
                 pass
-            elif token in [
-                    IonTextParser.WHITESPACE, IonTextParser.INLINE_COMMENT,
-                    IonTextParser.BLOCK_COMMENT,
-                    IonTextParser.LONG_QUOTED_STRING]:
+            elif token in [IonTextParser.WHITESPACE, IonTextParser.INLINE_COMMENT, IonTextParser.BLOCK_COMMENT, IonTextParser.LONG_QUOTED_STRING]:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 411
+                self.state = 411 
                 self._errHandler.sync(self)
                 _alt = 1
-                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                     if _alt == 1:
                         self.state = 407
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while (
-                                ((_la) & ~0x3f) == 0 and (
-                                    (1 << _la) & (
-                                        (1 << IonTextParser.WHITESPACE) |
-                                        (1 << IonTextParser.INLINE_COMMENT) |
-                                        (1 << IonTextParser.BLOCK_COMMENT))
-                                    ) != 0):
+                        while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << IonTextParser.WHITESPACE) | (1 << IonTextParser.INLINE_COMMENT) | (1 << IonTextParser.BLOCK_COMMENT))) != 0):
                             self.state = 404
                             self.ws()
                             self.state = 409
@@ -2537,10 +2418,9 @@ class IonTextParser(Parser):
 
                     else:
                         raise NoViableAltException(self)
-                    self.state = 413
+                    self.state = 413 
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(
-                        self._input, 50, self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input,50,self._ctx)
 
                 pass
             else:
@@ -2556,9 +2436,7 @@ class IonTextParser(Parser):
 
     class Quoted_textContext(ParserRuleContext):
 
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2568,34 +2446,38 @@ class IonTextParser(Parser):
         def SHORT_QUOTED_STRING(self):
             return self.getToken(IonTextParser.SHORT_QUOTED_STRING, 0)
 
-        def LONG_QUOTED_STRING(self, i: int=None):
+        def LONG_QUOTED_STRING(self, i:int=None):
             if i is None:
                 return self.getTokens(IonTextParser.LONG_QUOTED_STRING)
             else:
                 return self.getToken(IonTextParser.LONG_QUOTED_STRING, i)
 
-        def ws(self, i: int=None):
+        def ws(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(IonTextParser.WsContext)
             else:
-                return self.getTypedRuleContext(IonTextParser.WsContext, i)
+                return self.getTypedRuleContext(IonTextParser.WsContext,i)
+
 
         def getRuleIndex(self):
             return IonTextParser.RULE_quoted_text
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterQuoted_text"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterQuoted_text" ):
                 listener.enterQuoted_text(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitQuoted_text"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitQuoted_text" ):
                 listener.exitQuoted_text(self)
 
+
+
+
     def quoted_text(self):
-        localctx = IonTextParser.Quoted_textContext(
-            self, self._ctx, self.state)
+
+        localctx = IonTextParser.Quoted_textContext(self, self._ctx, self.state)
         self.enterRule(localctx, 46, self.RULE_quoted_text)
-        self._la = 0  # Token type
+        self._la = 0 # Token type
         try:
             self.state = 430
             self._errHandler.sync(self)
@@ -2610,26 +2492,17 @@ class IonTextParser(Parser):
                 self.state = 418
                 self.match(IonTextParser.SHORT_QUOTED_STRING)
                 pass
-            elif token in [
-                    IonTextParser.WHITESPACE, IonTextParser.INLINE_COMMENT,
-                    IonTextParser.BLOCK_COMMENT,
-                    IonTextParser.LONG_QUOTED_STRING]:
+            elif token in [IonTextParser.WHITESPACE, IonTextParser.INLINE_COMMENT, IonTextParser.BLOCK_COMMENT, IonTextParser.LONG_QUOTED_STRING]:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 426
+                self.state = 426 
                 self._errHandler.sync(self)
                 _alt = 1
-                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                     if _alt == 1:
                         self.state = 422
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while (
-                                ((_la) & ~0x3f) == 0 and (
-                                    (1 << _la) & (
-                                        (1 << IonTextParser.WHITESPACE) |
-                                        (1 << IonTextParser.INLINE_COMMENT) |
-                                        (1 << IonTextParser.BLOCK_COMMENT))
-                                    ) != 0):
+                        while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << IonTextParser.WHITESPACE) | (1 << IonTextParser.INLINE_COMMENT) | (1 << IonTextParser.BLOCK_COMMENT))) != 0):
                             self.state = 419
                             self.ws()
                             self.state = 424
@@ -2641,10 +2514,9 @@ class IonTextParser(Parser):
 
                     else:
                         raise NoViableAltException(self)
-                    self.state = 428
+                    self.state = 428 
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(
-                        self._input, 53, self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input,53,self._ctx)
 
                 pass
             else:
@@ -2660,9 +2532,7 @@ class IonTextParser(Parser):
 
     class SymbolContext(ParserRuleContext):
 
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2678,30 +2548,27 @@ class IonTextParser(Parser):
         def getRuleIndex(self):
             return IonTextParser.RULE_symbol
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterSymbol"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterSymbol" ):
                 listener.enterSymbol(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitSymbol"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitSymbol" ):
                 listener.exitSymbol(self)
 
+
+
+
     def symbol(self):
+
         localctx = IonTextParser.SymbolContext(self, self._ctx, self.state)
         self.enterRule(localctx, 48, self.RULE_symbol)
-        self._la = 0  # Token type
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 432
             _la = self._input.LA(1)
-            if not (
-                    (
-                        ((_la) & ~0x3f) == 0 and (
-                            (1 << _la) & (
-                                (1 << IonTextParser.TYPE) |
-                                (1 << IonTextParser.QUOTED_SYMBOL) |
-                                (1 << IonTextParser.IDENTIFIER_SYMBOL))
-                            ) != 0)):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << IonTextParser.TYPE) | (1 << IonTextParser.QUOTED_SYMBOL) | (1 << IonTextParser.IDENTIFIER_SYMBOL))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -2716,9 +2583,7 @@ class IonTextParser(Parser):
 
     class WsContext(ParserRuleContext):
 
-        def __init__(
-                self, parser, parent: ParserRuleContext=None,
-                invokingState: int=-1):
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2734,29 +2599,27 @@ class IonTextParser(Parser):
         def getRuleIndex(self):
             return IonTextParser.RULE_ws
 
-        def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterWs"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterWs" ):
                 listener.enterWs(self)
 
-        def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitWs"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitWs" ):
                 listener.exitWs(self)
 
+
+
+
     def ws(self):
+
         localctx = IonTextParser.WsContext(self, self._ctx, self.state)
         self.enterRule(localctx, 50, self.RULE_ws)
-        self._la = 0  # Token type
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 434
             _la = self._input.LA(1)
-            if not (
-                    (
-                        ((_la) & ~0x3f) == 0 and (
-                            (1 << _la) & (
-                                (1 << IonTextParser.WHITESPACE) |
-                                (1 << IonTextParser.INLINE_COMMENT) |
-                                (1 << IonTextParser.BLOCK_COMMENT))) != 0)):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << IonTextParser.WHITESPACE) | (1 << IonTextParser.INLINE_COMMENT) | (1 << IonTextParser.BLOCK_COMMENT))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -2768,3 +2631,8 @@ class IonTextParser(Parser):
         finally:
             self.exitRule()
         return localctx
+
+
+
+
+

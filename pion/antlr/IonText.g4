@@ -420,18 +420,20 @@ STRING_LONG_TEXT
 // non-control Unicode and not double quote or backslash
 fragment
 STRING_SHORT_TEXT_ALLOWED
-    : '\u0020'..'\u0021' // no C1 control characters and no U+0022 double quote
-    | '\u0023'..'\u005B' // no U+005C backslash
-    | '\u005D'..'\uFFFF' // FIXME should be up to U+10FFFF
-    | WS_NOT_NL
+    : ~["\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\u0008\u000A\u000D\u000E\u000F\u0010\u0011\u0012\u0013\u0014\u0015\u0016\u0017\u0018\u0019\u001A\u001B\u001C\u001D\u001E\u001F\u005C]
+//  : '\u0020'..'\u0021' // no C1 control characters and no U+0022 double quote
+//  | '\u0023'..'\u005B' // no U+005C backslash
+//  | '\u005D'..'\uFFFF' // FIXME should be up to U+10FFFF
+//  | WS_NOT_NL
     ;
 
 // non-control Unicode (newlines are OK)
 fragment
 STRING_LONG_TEXT_ALLOWED
-    : '\u0020'..'\u005B' // no C1 control characters and no U+005C blackslash
-    | '\u005D'..'\uFFFF' // FIXME should be up to U+10FFFF
-    | WS
+    : ~[\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\u0008\u000E\u000F\u0010\u0011\u0012\u0013\u0014\u0015\u0016\u0017\u0018\u0019\u001A\u001B\u001C\u001D\u001E\u001F\u005C]
+//  : '\u0020'..'\u005B' // no C1 control characters and no U+005C blackslash
+//  | '\u005D'..'\uFFFF' // FIXME should be up to U+10FFFF
+//  | WS
     ;
 
 fragment

@@ -3,6 +3,7 @@ from io import StringIO
 from datetime import (
     datetime as Datetime, timezone as Timezone, timedelta as Timedelta)
 import pytest
+from decimal import Decimal
 
 
 def test_load():
@@ -103,7 +104,7 @@ def test_loads():
         # Not a timestamp, but an int
         (
             '2007',
-            Exception()),
+            2007),
 
         # ERROR: Must end with 'T' if not whole-day precision, this results
         # as an invalid-numeric-stopper error
@@ -144,3 +145,180 @@ def test_timestamps(ion_str, pyth):
         'null.sexp'])
 def test_nulls(ion_str):
     assert loads(ion_str) is None
+
+
+@pytest.mark.parametrize(
+    "ion_str,pyth", [
+        ('true', True),
+        ('false', False)])
+def test_booleans(ion_str, pyth):
+    assert loads(ion_str) == pyth
+
+
+@pytest.mark.parametrize(
+    "ion_str,pyth", [
+
+        # Zero.  Surprise!
+        ('0', 0),
+
+        # ...the same value with a minus sign
+        ('-0', 0),
+
+        # A normal int
+        ('123', 123),
+
+        # Another negative int
+        ('-123', -123),
+
+        # An int denoted in hexadecimal
+        ('0xBeef', 0xBeef),
+
+        # An int denoted in binary
+        ('0b0101', 0b0101),
+
+        # An int with underscores
+        ('1_2_3', 123),
+
+        # An int denoted in hexadecimal with underscores
+        ('0xFA_CE', 0xFACE),
+
+        # An int denoted in binary with underscores
+        ('0b10_10_10', 0b101010),
+
+        # ERROR: leading plus not allowed
+        ('+1', PionException()),
+
+        # ERROR: leading zeros not allowed (no support for octal notation)
+        ('0123', PionException()),
+
+        # ERROR: trailing underscore not allowed
+        ('1_', PionException()),
+
+        # ERROR: consecutive underscores not allowed
+        ('1__2', PionException()),
+
+        # ERROR: underscore can only appear between digits (the radix prefix is
+        # not a digit)
+        ('0x_12', PionException()),
+
+        # A symbol (ints cannot start with underscores)
+        ('_1', '_1')])
+def test_integers(ion_str, pyth):
+    if isinstance(pyth, Exception):
+        with pytest.raises(PionException):
+            loads(ion_str)
+    else:
+        assert loads(ion_str) == pyth
+
+
+@pytest.mark.parametrize(
+    "ion_str,pyth", [
+
+        # Type is decimal
+        ('0.123', Decimal('0.123')),
+
+
+        # Type is float
+        ('-0.12e4', -0.12e4),
+
+        # Type is decimal
+        ('-0.12d4', Decimal('-0.12e4')),
+
+        # Zero as float
+        ('0E0', float(0)),
+
+        # Zero as decimal
+        ('0D0', Decimal('0')),
+
+        #   ...the same value with different notation
+        ('0.', Decimal('0')),
+
+        # Negative zero float   (distinct from positive zero)
+        ('-0e0', float(-0)),
+
+        # Negative zero decimal (distinct from positive zero)
+        ('-0d0', Decimal('-0')),
+
+        #   ...the same value with different notation
+        ('-0.', Decimal('-0')),
+
+        # Decimal maintains precision: -0. != -0.0
+        ('-0d-1', Decimal('-0.0')),
+
+        # Decimal with underscores
+        ('123_456.789_012', Decimal('123456.789012')),
+
+        # ERROR: underscores may not appear next to the decimal point
+        ('123_._456', PionException()),
+
+        # ERROR: consecutive underscores not allowed
+        ('12__34.56', PionException()),
+
+        # ERROR: trailing underscore not allowed
+        ('123.456_', PionException()),
+
+        # ERROR: underscore after negative sign not allowed
+        ('-_123.456', PionException()),
+
+        # ERROR: the symbol '_123' followed by an unexpected dot
+        ('_123.456', PionException())])
+def test_reals(ion_str, pyth):
+    if isinstance(pyth, Exception):
+        with pytest.raises(PionException):
+            loads(ion_str)
+    else:
+        assert loads(ion_str) == pyth
+
+
+@pytest.mark.parametrize(
+    "ion_str,pyth", [
+
+        # An empty string value
+        ('""', ''),
+
+        # A normal string
+        ('" my string "', ' my string '),
+
+        # Contains one double-quote character
+        ('"\\""', '"'),
+
+        # Contains one unicode character
+        (r'"\uABCD"', '\uABCD'),
+
+        # String with type annotation 'xml'
+        ('xml::"<e a=\'v\'>c</e>"', "<e a='v'>c</e>"),
+
+        # Sexp with one element
+        ("( '''hello '''\r'''world!'''  )", ('hello world!',)),
+
+        # The exact same sexp value
+        ('("hello world!")', ('hello world!',)),
+
+        # This Ion value is a string containing three newlines. The serialized
+        # form's first newline is escaped into nothingness.
+        (r"""'''\
+The first line of the string.
+This is the second line of the string,
+and this is the third line.
+'''""", """The first line of the string.
+This is the second line of the string,
+and this is the third line.
+""")])
+def test_strings(ion_str, pyth):
+    if isinstance(pyth, Exception):
+        with pytest.raises(PionException):
+            loads(ion_str)
+    else:
+        assert loads(ion_str) == pyth
+
+
+'''
+def test_str():
+    for c in pstr:
+        print(ord(c))
+    conv = loads(pstr)
+    assert conv == ('hello world!',)
+    for c in conv:
+        print(ord(c))
+    raise Exception()
+'''

@@ -20,18 +20,29 @@ then install Pion with pip:
 
 == Quickstart
 
-To parse a string from the Ion format to Python objects use `pion.loads` and
-to output a Python object as an Ion string use `pion.dumps`. Eg:
+To go from a Python object to an Ion string use `pion.dumps`. To go from an Ion
+string to a Python object use `pion.loads`. Eg.
 
 ....
 >>> from pion import loads, dumps
+>>> from datetime import datetime, timezone
 >>>
->>> # Parse a timestamp
->>> loads('2005-09-01T13:09Z')
-datetime.datetime(2005, 9, 1, 13, 9, tzinfo=tzutc())
+>>> # Take a Python object
+>>> book = {
+...     'title': 'A Hero of Our Time',
+...     'read_date': datetime(2017, 7, 16, 14, 5, tzinfo=timezone.utc),
+...     'would_recommend': True,
+...     'description': None,
+...     'number_of_novellas': 5,
+...     'price': Decimal('7.99'),
+...     'weight': 6.88}
 >>>
->>> # Parse a null
->>> loads('null')
+>>> # Output it as an Ion string
+>>> ion_str = dumps(book)
+>>> print(ion_str)
+>>>
+>>> # Load the Ion string, to give us back the Python object
+>>> loads(ion_str)
 
 ....
 
