@@ -7,6 +7,9 @@ https://github.com/tlocke/pion/blob/master/LICENSE[MIT Licence].
 image:https://travis-ci.org/tlocke/pion.svg?branch=master["Build Status",
 link="https://travis-ci.org/tlocke/pion"]
 
+The Ion format is a superset of JSON, adding (among other things) the
+much-needed timestamp, decimal and binary data types.
+
 
 == Installation
 
