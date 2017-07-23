@@ -1,6 +1,7 @@
 = Pion
 
-A Python 3 library for the http://amzn.github.io/ion-docs/[Ion format].
+A Python 3 library for the http://amzn.github.io/ion-docs/[Ion format],
+released under the LICENSE[MIT Licence].
 
 image:https://travis-ci.org/tlocke/pion.svg?branch=master["Build Status",
 link="https://travis-ci.org/tlocke/pion"]
@@ -54,9 +55,13 @@ Useful links:
 * https://amzn.github.io/ion-docs/spec.html[Ion Specification]
 * http://www.antlr.org/api/Java/index.html?overview-summary.html[ANTLR JavaDocs]
 
+To run the tests:
+
 * Change to the `pion` directory: `cd pion`
 * Create a virtual environment: `virtualenv --python=python3 venv`
 * Active the virtual environment: `source venv/bin/activate`
+* Install tox: `pip install tox`
+* Run tox: `tox`
 
 The core parser is created using https://github.com/antlr/antlr4[ANTLR] from
 the http://amzn.github.io/ion-docs/grammar/IonText.g4.txt[Ion grammar]. To
@@ -64,3 +69,14 @@ create the parser files, go to the `antlr` directory and download the ANTLR jar
 and then run the following command:
 
  java -jar antlr-4.7-complete.jar -Dlanguage=Python3 IonText.g4
+
+
+=== Making A New Release
+
+Run `tox` to make sure all tests pass, then update the `Release Notes` section
+then do:
+
+....
+git tag -a x.y.z -m "version x.y.z"
+python setup.py register sdist bdist_wheel upload --sign
+....

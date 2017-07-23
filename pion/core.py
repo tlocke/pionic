@@ -5,6 +5,7 @@ from pion.antlr.IonTextLexer import IonTextLexer
 from pion.antlr.IonTextParser import IonTextParser
 import arrow
 from decimal import Decimal
+from base64 import b64decode
 
 
 class PionException(Exception):
@@ -42,33 +43,55 @@ _trans_dec = str.maketrans('dD', 'ee', '_')
 
 
 def parse(node):
+    print("parse start")
+    print(str(type(node)))
+    print("node text" + node.getText())
     if isinstance(node, IonTextParser.StructContext):
         val = {}
-        children = [
-            c for c in node.getChildren() if not
-            isinstance(c, TerminalNodeImpl)]
-        for child in children:
-            parse(child)
+        for child in node.getChildren():
+            if isinstance(child, IonTextParser.FieldContext):
+                for c in child.getChildren():
+                    if isinstance(c, IonTextParser.Field_nameContext):
+                        k = parse(c)
+                    elif isinstance(c, IonTextParser.EntityContext):
+                        v = parse(c)
+                val[k] = v
+
+    elif isinstance(node, IonTextParser.List_typeContext):
+        val = []
+        for child in node.getChildren():
+            if isinstance(child, IonTextParser.ValueContext):
+                val.append(parse(child))
+
     elif isinstance(
             node, (
                 IonTextParser.Top_levelContext,
                 IonTextParser.Top_level_valueContext,
                 IonTextParser.Delimiting_entityContext,
                 IonTextParser.ValueContext,
+                IonTextParser.SymbolContext,
                 IonTextParser.EntityContext,
                 IonTextParser.Keyword_entityContext,
                 IonTextParser.Numeric_entityContext,
                 IonTextParser.AnnotationContext,
+                IonTextParser.Field_nameContext,
                 IonTextParser.Sexp_valueContext,
-                IonTextParser.Sexp_delimiting_entityContext)):
+                IonTextParser.Sexp_delimiting_entityContext,
+                IonTextParser.Sexp_keyword_entityContext,
+                IonTextParser.Sexp_keyword_delimiting_entityContext)):
 
         children = []
         for c in node.getChildren():
-            if isinstance(c, TerminalNodeImpl):
-                payload = c.getPayload()
-                if payload.type == IonTextParser.EOF:
-                    continue
-            elif isinstance(c, IonTextParser.AnnotationContext):
+            print("c start")
+            print(str(type(c)))
+            print("c text" + c.getText())
+            if isinstance(c, TerminalNodeImpl) and \
+                    c.getPayload().type == IonTextParser.EOF:
+                continue
+            elif isinstance(
+                    c, (
+                        IonTextParser.AnnotationContext,
+                        IonTextParser.WsContext)):
                 continue
 
             children.append(c)
@@ -82,45 +105,80 @@ def parse(node):
     elif isinstance(node, TerminalNodeImpl):
         token = node.getPayload()
         token_type = token.type
+        token_text = token.text
 
         if token_type == IonTextParser.TIMESTAMP:
             try:
-                val = arrow.get(token.text).datetime
+                val = arrow.get(token_text).datetime
             except arrow.parser.ParserError as e:
                 raise PionException(
                     "Can't parse the timestamp '" + token.text + "'.") from e
+
         elif token_type == IonTextParser.BOOL:
             val = token.text == 'true'
-        elif token_type == IonTextParser.IDENTIFIER_SYMBOL:
+
+        elif token_type in (
+                IonTextParser.IDENTIFIER_SYMBOL,
+                IonTextParser.NON_DOT_OPERATOR,
+                IonTextParser.DOT):
             val = token.text
+
         elif token_type in (
                 IonTextParser.BIN_INTEGER, IonTextParser.DEC_INTEGER,
                 IonTextParser.HEX_INTEGER):
             val = int(token.text.replace('_', ''), 0)
+
         elif token_type == IonTextParser.DECIMAL:
             val = Decimal(token.text.translate(_trans_dec))
+
         elif token_type == IonTextParser.FLOAT:
             val = float(token.text.replace('_', ''))
-        elif token_type == IonTextParser.SHORT_QUOTED_STRING:
+
+        elif token_type in (
+                IonTextParser.SHORT_QUOTED_STRING,
+                IonTextParser.QUOTED_SYMBOL):
             val = unescape(token.text[1:-1])
+
         elif token_type == IonTextParser.LONG_QUOTED_STRING:
             val = unescape(token.text[3:-3])
+
+        elif token_type == IonTextParser.BLOB:
+            val = bytearray(b64decode(token.text))
+
+        elif token_type == IonTextParser.SHORT_QUOTED_CLOB:
+            val = bytes(unescape(token_text[2:-2].strip()[1:-1]), 'ascii')
+
+        elif token_type == IonTextParser.LONG_QUOTED_CLOB:
+            clobs = []
+            clobs_str = token_text[2:-2].strip()
+            start = clobs_str.find("'''")
+            while start != -1:
+                finish = clobs_str.find("'''", start + 3)
+                clobs.append(clobs_str[start + 3:finish])
+                start = clobs_str.find("'''", finish + 3)
+            val = bytes(unescape(''.join(clobs)), 'ascii')
         else:
             raise PionException(
                 "Don't recognize the token type: " + str(token_type) + ".")
     elif isinstance(node, IonTextParser.SexpContext):
         sexp = []
         for child in node.getChildren():
-            if isinstance(child, IonTextParser.Sexp_valueContext):
+            if isinstance(
+                    child, (
+                        IonTextParser.Sexp_valueContext,
+                        IonTextParser.ValueContext)):
                 for c in child.getChildren():
-                    sexp.append(parse(child))
+                    if not isinstance(c, IonTextParser.WsContext):
+                        sexp.append(parse(c))
         val = tuple(sexp)
-    elif isinstance(node, IonTextParser.Quoted_textContext):
+    elif isinstance(
+            node, (
+                IonTextParser.Quoted_textContext,
+                IonTextParser.OperatorContext)):
         s = []
         for c in node.getChildren():
-            if isinstance(c, IonTextParser.WsContext):
-                continue
-            s.append(parse(c))
+            if not isinstance(c, IonTextParser.WsContext):
+                s.append(parse(c))
         val = ''.join(s)
     else:
         raise PionException(

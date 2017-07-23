@@ -4,18 +4,18 @@ from datetime import (
     datetime as Datetime, timezone as Timezone, timedelta as Timedelta)
 import pytest
 from decimal import Decimal
+from base64 import b64decode
 
 
 def test_load():
     assert load(StringIO('{}')) == {}
 
 
-def test_loads():
-    assert loads('{}') == {}
-
-
 @pytest.mark.parametrize(
     "ion_str,pyth", [
+        #
+        # Timestamp
+        #
 
         # A null timestamp value
         (
@@ -115,48 +115,40 @@ def test_loads():
         # ERROR: Must have at least one digit precision after decimal point.
         (
             '2007-02-23T20:14:33.Z',
-            Exception())])
-def test_timestamps(ion_str, pyth):
-    if isinstance(pyth, Exception):
-        with pytest.raises(PionException):
-            loads(ion_str)
-    else:
-        assert loads(ion_str) == pyth
+            Exception()),
 
+        #
+        # Null Values
+        #
 
-@pytest.mark.parametrize(
-    "ion_str", [
-        'null',
+        ('null', None),
 
         # Identical to unadorned null
-        'null.null',
+        ('null.null', None),
 
-        'null.bool',
-        'null.int',
-        'null.float',
-        'null.decimal',
-        'null.timestamp',
-        'null.string',
-        'null.symbol',
-        'null.blob',
-        'null.clob',
-        'null.struct',
-        'null.list',
-        'null.sexp'])
-def test_nulls(ion_str):
-    assert loads(ion_str) is None
+        ('null.bool', None),
+        ('null.int', None),
+        ('null.float', None),
+        ('null.decimal', None),
+        ('null.timestamp', None),
+        ('null.string', None),
+        ('null.symbol', None),
+        ('null.blob', None),
+        ('null.clob', None),
+        ('null.struct', None),
+        ('null.list', None),
+        ('null.sexp', None),
 
+        #
+        # Booleans
+        #
 
-@pytest.mark.parametrize(
-    "ion_str,pyth", [
         ('true', True),
-        ('false', False)])
-def test_booleans(ion_str, pyth):
-    assert loads(ion_str) == pyth
+        ('false', False),
 
-
-@pytest.mark.parametrize(
-    "ion_str,pyth", [
+        #
+        # Integers
+        #
 
         # Zero.  Surprise!
         ('0', 0),
@@ -202,21 +194,15 @@ def test_booleans(ion_str, pyth):
         ('0x_12', PionException()),
 
         # A symbol (ints cannot start with underscores)
-        ('_1', '_1')])
-def test_integers(ion_str, pyth):
-    if isinstance(pyth, Exception):
-        with pytest.raises(PionException):
-            loads(ion_str)
-    else:
-        assert loads(ion_str) == pyth
+        ('_1', '_1'),
 
 
-@pytest.mark.parametrize(
-    "ion_str,pyth", [
+        #
+        # Real Numbers
+        #
 
         # Type is decimal
         ('0.123', Decimal('0.123')),
-
 
         # Type is float
         ('-0.12e4', -0.12e4),
@@ -261,17 +247,12 @@ def test_integers(ion_str, pyth):
         ('-_123.456', PionException()),
 
         # ERROR: the symbol '_123' followed by an unexpected dot
-        ('_123.456', PionException())])
-def test_reals(ion_str, pyth):
-    if isinstance(pyth, Exception):
-        with pytest.raises(PionException):
-            loads(ion_str)
-    else:
-        assert loads(ion_str) == pyth
+        ('_123.456', PionException()),
 
 
-@pytest.mark.parametrize(
-    "ion_str,pyth", [
+        #
+        # Strings
+        #
 
         # An empty string value
         ('""', ''),
@@ -303,8 +284,258 @@ and this is the third line.
 '''""", """The first line of the string.
 This is the second line of the string,
 and this is the third line.
-""")])
-def test_strings(ion_str, pyth):
+"""),
+
+
+        #
+        # Symbols
+        #
+
+        # A symbol
+        ("'myVar2'", 'myVar2'),
+
+        # The same symbol
+        ('myVar2', 'myVar2'),
+
+        # A different symbol
+        ('myvar2', 'myvar2'),
+
+        # Symbol requiring quotes
+        ("'hi ho'", 'hi ho'),
+
+        # A symbol with embedded quotes
+        (r"'\'ahoy\''", "'ahoy'"),
+
+        # The empty symbol
+        ("''", ''),
+
+        # S-expression with three symbols
+        ("( 'x' '+' 'y' )", ('x', '+', 'y')),
+
+        # The same three symbols
+        ("( x + y )", ('x', '+', 'y')),
+
+        # The same three symbols
+        ("(x+y)", ('x', '+', 'y')),
+
+        # S-expression with seven symbols
+        ("(a==b&&c==d)", ('a', '==', 'b', '&&', 'c', '==', 'd')),
+
+        #
+        # Blobs
+        #
+
+        # A valid blob value with zero padding characters.
+        (
+            """{{
++AB/
+}}""",
+            bytearray(b64decode('+AB/'))),
+
+        # A valid blob value with one required padding character.
+        (
+            '{{ VG8gaW5maW5pdHkuLi4gYW5kIGJleW9uZCE= }}',
+            bytearray(b64decode('VG8gaW5maW5pdHkuLi4gYW5kIGJleW9uZCE='))),
+
+        # ERROR: Incorrect number of padding characters.
+        (
+            '{{ VG8gaW5maW5pdHkuLi4gYW5kIGJleW9uZCE== }}',
+            PionException()),
+
+        # ERROR: Padding character within the data.
+        (
+            '{{ VG8gaW5maW5pdHku=Li4gYW5kIGJleW9uZCE= }}',
+            PionException()),
+
+        # A valid blob value with two required padding characters.
+        (
+            '{{ dHdvIHBhZGRpbmcgY2hhcmFjdGVycw== }}',
+            bytearray(b64decode('dHdvIHBhZGRpbmcgY2hhcmFjdGVycw=='))),
+
+        # ERROR: Invalid character within the data.
+        (
+            '{{ dHdvIHBhZGRpbmc_gY2hhcmFjdGVycw= }}',
+            PionException()),
+
+
+        #
+        # Clobs
+        #
+
+        (
+            '{{ "This is a CLOB of text." }}',
+            b"This is a CLOB of text."),
+
+        (
+            """shift_jis ::
+            {{
+              '''Another clob with user-defined encoding, '''
+              '''this time on multiple lines.'''
+            }}""",
+            b"Another clob with user-defined encoding, "
+            b"this time on multiple lines."),
+
+        (
+            """{{
+               // ERROR
+               "comments not allowed"
+            }}""",
+            PionException()),
+
+
+        #
+        # Structures
+        #
+
+        # An empty struct value
+        (
+            '{ }',
+            {}),
+
+        # Structure with two fields
+        (
+            '{ first : "Tom" , last: "Riddle" }',
+            {'first': "Tom", 'last': "Riddle"}),
+
+        # The same value with confusing style
+        (
+            '{"first":"Tom","last":"Riddle"}',
+            {"first": "Tom", "last": "Riddle"}),
+
+        # Nested struct
+        (
+            '{center:{x:1.0, y:12.5}, radius:3}',
+            {'center': {'x': 1.0, 'y': 12.5}, 'radius': 3}),
+
+        # Trailing comma is legal in Ion (unlike JSON)
+        (
+            '{ x:1, }',
+            {'x': 1}),
+
+        # A struct value containing a field with an empty name
+        (
+            '{ "":42 }',
+            {"": 42}),
+
+        # WARNING: repeated name 'x' leads to undefined behavior
+        (
+            '{ x:1, x:null.int }',
+            {'x': None}),
+
+        # ERROR: missing field between commas
+        (
+            '{ x:1, , }',
+            PionException()),
+
+        #
+        # Lists
+        #
+
+        # An empty list value
+        (
+            '[]',
+            []),
+
+        # List of three ints
+        (
+            '[1, 2, 3]',
+            [1, 2, 3]),
+
+        # List of an int and a symbol
+        (
+            '[ 1 , two ]',
+            [1, 'two']),
+
+        # Nested list
+        (
+            '[a , [b]]',
+            ['a', ['b']]),
+
+        # Trailing comma is legal in Ion (unlike JSON)
+        (
+            '[ 1.2, ]',
+            [Decimal('1.2')]),
+
+        # ERROR: missing element between commas
+        (
+            '[ 1, , 2 ]',
+            PionException()),
+
+        #
+        # S-Expressions
+
+        # An empty expression value
+        (
+            '()',
+            ()),
+
+        # S-expression of three values
+        (
+            '(cons 1 2)',
+            ('cons', 1, 2)),
+
+        # S-expression containing two lists
+        (
+            '([hello][there])',
+            (['hello'], ['there'])),
+
+        # Equivalent; three symbols
+        (
+            "(a+-b)",
+            ('a', '+-', 'b')),
+
+        (
+            "( 'a' '+-' 'b' )",
+            ('a', '+-', 'b')),
+
+        # Equivalent; four symbols
+        (
+            "(a.b;)",
+            ('a', '.', 'b', ';')),
+
+        (
+            "( 'a' '.' 'b' ';')",
+            ('a', '.', 'b', ';')),
+
+        #
+        # Type Annotations
+        #
+
+        # Suggests 32 bits as end-user type
+        (
+            'nt32::12',
+            12),
+
+        # Gives a struct a user-defined type
+        (
+            "'my.custom.type' :: { x : 12 , y : -1 }",
+            {'x': 12, 'y': -1}),
+
+        # Field's name must precede annotations of its value
+        (
+            "{ field: something::'another thing'::value }",
+            {'field': 'value'}),
+
+        # Indicates the blob contains jpeg data
+        (
+            "jpeg :: {{ +AB/ }}",
+            bytearray(b64decode('+AB/'))),
+
+        # A very misleading annotation on the integer null
+        (
+            'bool :: null.int',
+            None),
+
+        # An empty annotation
+        (
+           " '' :: 1",
+           1),
+
+        # ERROR: type annotation cannot be null
+        (
+            "null.symbol :: 1",
+            PionException())])
+def test_loads(ion_str, pyth):
     if isinstance(pyth, Exception):
         with pytest.raises(PionException):
             loads(ion_str)
@@ -314,10 +545,11 @@ def test_strings(ion_str, pyth):
 
 '''
 def test_str():
+    pstr = '{ first : "Tom" , last: "Riddle" }'
+    conv = loads(pstr)
+    assert conv == {'first': "Tom", 'last': "Riddle"}
     for c in pstr:
         print(ord(c))
-    conv = loads(pstr)
-    assert conv == ('hello world!',)
     for c in conv:
         print(ord(c))
     raise Exception()
