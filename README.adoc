@@ -1,7 +1,8 @@
 = Pion
 
 A Python 3 library for the http://amzn.github.io/ion-docs/[Ion format],
-released under the LICENSE[MIT Licence].
+released under the
+https://github.com/tlocke/pion/blob/master/LICENSE[MIT Licence].
 
 image:https://travis-ci.org/tlocke/pion.svg?branch=master["Build Status",
 link="https://travis-ci.org/tlocke/pion"]
