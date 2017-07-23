@@ -1,1 +1,2 @@
 pion/_version.py export-subst
+pionic/_version.py export-subst

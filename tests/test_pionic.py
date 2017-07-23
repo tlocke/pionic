@@ -1,4 +1,4 @@
-from pion import load, loads, PionException, dump, dumps
+from pionic import load, loads, PionException, dump, dumps
 from io import StringIO
 from datetime import (
     datetime as Datetime, timezone as Timezone, timedelta as Timedelta)

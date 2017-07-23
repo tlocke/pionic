@@ -1,8 +1,8 @@
 from antlr4 import CommonTokenStream, InputStream
 from antlr4.error import Errors, ErrorListener
 from antlr4.tree.Tree import TerminalNodeImpl
-from pion.antlr.IonTextLexer import IonTextLexer
-from pion.antlr.IonTextParser import IonTextParser
+from pionic.antlr.IonTextLexer import IonTextLexer
+from pionic.antlr.IonTextParser import IonTextParser
 import arrow
 from decimal import Decimal
 from base64 import b64decode, b64encode

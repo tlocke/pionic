@@ -1,11 +1,11 @@
-= Pion
+= Pionic
 
 A Python 3 library for the http://amzn.github.io/ion-docs/[Ion format],
 released under the
-https://github.com/tlocke/pion/blob/master/LICENSE[MIT Licence].
+https://github.com/tlocke/pionic/blob/master/LICENSE[MIT Licence].
 
-image:https://travis-ci.org/tlocke/pion.svg?branch=master["Build Status",
-link="https://travis-ci.org/tlocke/pion"]
+image:https://travis-ci.org/tlocke/pionic.svg?branch=master["Build Status",
+link="https://travis-ci.org/tlocke/pionic"]
 
 The Ion format is a superset of JSON, adding (among other things) the
 much-needed timestamp, decimal and binary data types.
@@ -18,18 +18,18 @@ It's a good idea to set up a virtualenv:
  virtualenv venv
  source venv/bin/activate
 
-then install Pion with pip:
+then install Pionic with pip:
 
- pip install pion
+ pip install pionic
 
 
 == Quickstart
 
-To go from a Python object to an Ion string use `pion.dumps`. To go from an Ion
-string to a Python object use `pion.loads`. Eg.
+To go from a Python object to an Ion string use `pionic.dumps`. To go from an
+Ion string to a Python object use `pionic.loads`. Eg.
 
 ....
->>> from pion import loads, dumps
+>>> from pionic import loads, dumps
 >>> from datetime import datetime, timezone
 >>> from decimal import Decimal
 >>>
@@ -81,7 +81,7 @@ Useful links:
 
 To run the tests:
 
-* Change to the `pion` directory: `cd pion`
+* Change to the `pionic` directory: `cd pionic`
 * Create a virtual environment: `virtualenv --python=python3 venv`
 * Active the virtual environment: `source venv/bin/activate`
 * Install tox: `pip install tox`

@@ -42,8 +42,8 @@ def get_config():
     cfg.VCS = "git"
     cfg.style = "pep440"
     cfg.tag_prefix = ""
-    cfg.parentdir_prefix = "pion-"
-    cfg.versionfile_source = "pion/_version.py"
+    cfg.parentdir_prefix = "pionic-"
+    cfg.versionfile_source = "pionic/_version.py"
     cfg.verbose = False
     return cfg
 

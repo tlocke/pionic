@@ -1,2 +1,3 @@
 include versioneer.py
 include pion/_version.py
+include pionic/_version.py
