@@ -1,14 +1,21 @@
-from pion import load, loads, PionException
+from pion import load, loads, PionException, dump, dumps
 from io import StringIO
 from datetime import (
     datetime as Datetime, timezone as Timezone, timedelta as Timedelta)
 import pytest
 from decimal import Decimal
 from base64 import b64decode
+from collections import OrderedDict
 
 
 def test_load():
     assert load(StringIO('{}')) == {}
+
+
+def test_dump():
+    f = StringIO()
+    dump({}, f)
+    assert f.getvalue() == '{}'
 
 
 @pytest.mark.parametrize(
@@ -541,6 +548,36 @@ def test_loads(ion_str, pyth):
             loads(ion_str)
     else:
         assert loads(ion_str) == pyth
+
+
+def test_dumps():
+    book = OrderedDict(
+        (
+            ('title', 'A Hero of Our Time'),
+            ('read_date', Datetime(2017, 7, 16, 14, 5, tzinfo=Timezone.utc)),
+            ('would_recommend', True),
+            ('description', None),
+            ('number_of_novellas', 5),
+            ('price', Decimal('7.99')),
+            ('weight', 6.88),
+            ('key', bytearray(b'kshhgrl')),
+            ('tags', ['russian', 'novel', '19th centuary'])))
+
+    ion_str = """{
+  'description': null,
+  'key': {{ a3NoaGdybA== }},
+  'number_of_novellas': 5,
+  'price': 7.99,
+  'read_date': 2017-07-16T14:05:00Z,
+  'tags': [
+    "russian",
+    "novel",
+    "19th centuary"],
+  'title': "A Hero of Our Time",
+  'weight': 6.88,
+  'would_recommend': true}"""
+
+    assert dumps(book) == ion_str
 
 
 '''

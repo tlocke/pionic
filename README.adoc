@@ -27,6 +27,7 @@ string to a Python object use `pion.loads`. Eg.
 ....
 >>> from pion import loads, dumps
 >>> from datetime import datetime, timezone
+>>> from decimal import Decimal
 >>>
 >>> # Take a Python object
 >>> book = {
@@ -36,14 +37,33 @@ string to a Python object use `pion.loads`. Eg.
 ...     'description': None,
 ...     'number_of_novellas': 5,
 ...     'price': Decimal('7.99'),
-...     'weight': 6.88}
+...     'weight': 6.88,
+...     'key': bytearray(b'kshhgrl'),
+...     'tags': ['russian', 'novel', '19th century']}
 >>>
 >>> # Output it as an Ion string
 >>> ion_str = dumps(book)
 >>> print(ion_str)
+{
+  'description': null,
+  'key': {{ a3NoaGdybA== }},
+  'number_of_novellas': 5,
+  'price': 7.99,
+  'read_date': 2017-07-16T14:05:00Z,
+  'tags': [
+    "russian",
+    "novel",
+    "19th century"],
+  'title': "A Hero of Our Time",
+  'weight': 6.88,
+  'would_recommend': true}
 >>>
 >>> # Load the Ion string, to give us back the Python object
->>> loads(ion_str)
+>>> reloaded_book = loads(ion_str)
+>>> 
+>>> # Print the title
+>>> print(reloaded_book['title'])
+A Hero of Our Time
 
 ....
 

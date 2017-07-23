@@ -5,7 +5,15 @@ from pion.antlr.IonTextLexer import IonTextLexer
 from pion.antlr.IonTextParser import IonTextParser
 import arrow
 from decimal import Decimal
-from base64 import b64decode
+from base64 import b64decode, b64encode
+from collections.abc import Mapping
+from datetime import datetime as Datetime, timezone as Timezone
+
+
+LONG_QUOTE = "'''"
+SHORT_QUOTE = '"'
+UTC_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
+TZ_FORMAT = '%Y-%m-%dT%H:%M:%S%z'
 
 
 class PionException(Exception):
@@ -20,6 +28,10 @@ class ThrowingErrorListener(ErrorListener.ErrorListener):
 
 def load(file_like):
     return loads(file_like.read())
+
+
+def dump(obj, file_like):
+    file_like.write(dumps(obj))
 
 
 def loads(ion_str):
@@ -43,9 +55,9 @@ _trans_dec = str.maketrans('dD', 'ee', '_')
 
 
 def parse(node):
-    print("parse start")
-    print(str(type(node)))
-    print("node text" + node.getText())
+    # print("parse start")
+    # print(str(type(node)))
+    # print("node text" + node.getText())
     if isinstance(node, IonTextParser.StructContext):
         val = {}
         for child in node.getChildren():
@@ -82,9 +94,6 @@ def parse(node):
 
         children = []
         for c in node.getChildren():
-            print("c start")
-            print(str(type(c)))
-            print("c text" + c.getText())
             if isinstance(c, TerminalNodeImpl) and \
                     c.getPayload().type == IonTextParser.EOF:
                 continue
@@ -229,8 +238,39 @@ def unescape(escaped_str):
 
 
 def dumps(obj):
-    return _dump(obj)
+    return _dump(obj, '')
 
 
-def _dump(obj):
-    return str(obj)
+def _dump(obj, indent):
+    if isinstance(obj, Mapping):
+        new_indent = indent + '  '
+        items = []
+        for k, v in sorted(obj.items()):
+            items.append(
+                '\n' + new_indent + "'" + k + "': " + _dump(v, new_indent))
+        return '{' + ','.join(items) + '}'
+    elif isinstance(obj, bool):
+        return 'true' if obj else 'false'
+    elif isinstance(obj, list):
+        new_indent = indent + '  '
+        b = ','.join('\n' + new_indent + _dump(v, new_indent) for v in obj)
+        return '[' + b + ']'
+    elif isinstance(obj, (int, float, Decimal)):
+        return str(obj)
+    elif obj is None:
+        return 'null'
+    elif isinstance(obj, str):
+        quote = LONG_QUOTE if '\n' in obj or '\r' in obj else SHORT_QUOTE
+        return quote + obj + quote
+    elif isinstance(obj, bytearray):
+        return '{{ ' + b64encode(obj).decode() + ' }}'
+    elif isinstance(obj, bytes):
+        return "{{ '" + obj.decode() + "' }}"
+    elif isinstance(obj, Datetime):
+        if obj.tzinfo is None or obj.tzinfo == Timezone.utc:
+            fmt = UTC_FORMAT
+        else:
+            fmt = TZ_FORMAT
+        return obj.strftime(fmt)
+    else:
+        raise PionException("Type " + str(type(obj)) + " not recognised.")
